@@ -10,18 +10,27 @@ const bucket = admin.storage().bucket();
 
 exports.handler = async function(event, context) {
     if (event.httpMethod === 'POST') {
-        const data = JSON.parse(event.body);
-        const fileBuffer = Buffer.from(data.fileContent, 'base64');
+        try {
+            const data = JSON.parse(event.body);
+            const fileBuffer = Buffer.from(data.fileContent, 'base64');
 
-        const file = bucket.file(data.fileName);
-        await file.save(fileBuffer, {
-            metadata: { contentType: 'application/pdf' }
-        });
+            const file = bucket.file(data.fileName);
+            await file.save(fileBuffer, {
+                metadata: { contentType: 'application/pdf' }
+            });
 
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ message: 'Upload bem-sucedido!' })
-        };
+            console.log(`Arquivo ${data.fileName} enviado com sucesso.`);
+            return {
+                statusCode: 200,
+                body: JSON.stringify({ message: 'Upload bem-sucedido!' })
+            };
+        } catch (error) {
+            console.error('Erro ao enviar o arquivo:', error);
+            return {
+                statusCode: 500,
+                body: JSON.stringify({ message: 'Erro ao enviar o arquivo.' })
+            };
+        }
     }
 
     return {
