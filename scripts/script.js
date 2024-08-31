@@ -1,3 +1,18 @@
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+
+    // Simulação de login (apenas para fins de exemplo)
+    if (username === 'admin' && password === '1234') {
+        document.querySelector('.login-container').style.display = 'none';
+        document.querySelector('.upload-container').style.display = 'block';
+    } else {
+        alert('Credenciais inválidas!');
+    }
+});
+
 document.getElementById('uploadForm').addEventListener('submit', function(event) {
     event.preventDefault();
     
