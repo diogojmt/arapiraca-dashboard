@@ -6,9 +6,14 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
     // Simulação de login (apenas para fins de exemplo)
     if (username === 'admin' && password === '1234') {
-        document.querySelector('.login-container').style.display = 'none';
-        document.querySelector('.upload-container').style.display = 'block';
-
+        var loginContainer = document.querySelector('.login-container');
+        var uploadContainer = document.querySelector('.upload-container');
+        
+        if (loginContainer && uploadContainer) {
+            loginContainer.style.display = 'none';
+            uploadContainer.style.display = 'block';
+        }
+        
         // Carregar e exibir arquivos existentes na pasta uploads
         loadUploadedFiles();
     } else {
@@ -21,6 +26,9 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
     
     var files = document.getElementById('fileInput').files;
     var fileList = document.getElementById('fileList');
+    
+    if (!fileList) return; // Verificar se o elemento fileList existe
+    
     fileList.innerHTML = '';
     
     var totalFiles = files.length;
@@ -49,8 +57,9 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
                 updateSummary(successfulUploads, failedUploads, totalFiles);
                 
                 // Mostrar botão de processamento se houver uploads bem-sucedidos
-                if (successfulUploads > 0) {
-                    document.getElementById('processButton').style.display = 'block';
+                var processButton = document.getElementById('processButton');
+                if (processButton && successfulUploads > 0) {
+                    processButton.style.display = 'block';
                 }
             });
         }
@@ -105,12 +114,15 @@ function uploadFile(file, progressBar, progressPercentage, callback) {
 
 function updateSummary(successfulUploads, failedUploads, totalFiles) {
     var summary = document.getElementById('summary');
-    summary.innerHTML = `
-        <strong>Resumo:</strong><br>
-        Total de Arquivos: ${totalFiles}<br>
-        Sucesso: ${successfulUploads}<br>
-        Falhas: ${failedUploads}
-    `;
+    
+    if (summary) {
+        summary.innerHTML = `
+            <strong>Resumo:</strong><br>
+            Total de Arquivos: ${totalFiles}<br>
+            Sucesso: ${successfulUploads}<br>
+            Falhas: ${failedUploads}
+        `;
+    }
 }
 
 function loadUploadedFiles() {
@@ -125,11 +137,14 @@ function loadUploadedFiles() {
             try {
                 const jsonData = JSON.parse(data); // Tentar fazer o parse para JSON
                 var uploadedFilesContainer = document.getElementById('uploadedFiles');
-                uploadedFilesContainer.innerHTML = '<h3>Arquivos Carregados:</h3><ul>';
-                jsonData.files.forEach(file => {
-                    uploadedFilesContainer.innerHTML += `<li>${file}</li>`;
-                });
-                uploadedFilesContainer.innerHTML += '</ul>';
+                
+                if (uploadedFilesContainer) {
+                    uploadedFilesContainer.innerHTML = '<h3>Arquivos Carregados:</h3><ul>';
+                    jsonData.files.forEach(file => {
+                        uploadedFilesContainer.innerHTML += `<li>${file}</li>`;
+                    });
+                    uploadedFilesContainer.innerHTML += '</ul>';
+                }
             } catch (error) {
                 console.error('Erro ao fazer o parse do JSON:', error);
                 alert('Erro ao carregar arquivos. Resposta inesperada do servidor.');
