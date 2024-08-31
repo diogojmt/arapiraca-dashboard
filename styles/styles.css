@@ -13,7 +13,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    width: 500px;
     text-align: center;
 }
 
@@ -39,31 +39,28 @@ button:hover {
     background-color: #0056b3;
 }
 
-#fileButtonContainer {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 #feedbackContainer {
     max-height: 300px;
     overflow-y: auto;
     margin-top: 20px;
     border-top: 1px solid #ccc;
     padding-top: 20px;
+}
+
+#fileTable {
     width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#fileTable th, #fileTable td {
+    border: 1px solid #ccc;
+    padding: 10px;
     text-align: left;
 }
 
-ul#fileList {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-ul#fileList li {
-    margin-bottom: 10px;
+#fileTable th {
+    background-color: #f8f8f8;
 }
 
 .progress-bar {

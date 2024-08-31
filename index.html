@@ -28,12 +28,17 @@
         <!-- Container para agrupar arquivos e botões -->
         <div id="fileButtonContainer">
             <div id="feedbackContainer">
-                <ul id="fileList"></ul>
+                <table id="fileTable">
+                    <thead>
+                        <tr>
+                            <th>Nome do Arquivo</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="fileList"></tbody>
+                </table>
                 <div id="summary" style="margin-top: 20px;"></div>
             </div>
-
-            <!-- Exibir arquivos carregados -->
-            <div id="uploadedFiles"></div>
 
             <!-- Botão para processar os PDFs e gerar o CSV -->
             <button id="processButton" style="display: none;">Processar PDFs</button>

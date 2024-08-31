@@ -6,14 +6,9 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
     // Simulação de login (apenas para fins de exemplo)
     if (username === 'admin' && password === '1234') {
-        var loginContainer = document.querySelector('.login-container');
-        var uploadContainer = document.querySelector('.upload-container');
-        
-        if (loginContainer && uploadContainer) {
-            loginContainer.style.display = 'none';
-            uploadContainer.style.display = 'block';
-        }
-        
+        document.querySelector('.login-container').style.display = 'none';
+        document.querySelector('.upload-container').style.display = 'block';
+
         // Carregar e exibir arquivos existentes na pasta uploads
         loadUploadedFiles();
     } else {
@@ -26,9 +21,6 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
     
     var files = document.getElementById('fileInput').files;
     var fileList = document.getElementById('fileList');
-    
-    if (!fileList) return; // Verificar se o elemento fileList existe
-    
     fileList.innerHTML = '';
     
     var totalFiles = files.length;
@@ -38,14 +30,14 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
     if (totalFiles > 0) {
         for (let i = 0; i < files.length; i++) {
             let file = files[i];
-            let listItem = document.createElement('li');
-            listItem.innerHTML = `<strong>${file.name}</strong> <span class="progress-percentage">0%</span>`;
+            let listItem = document.createElement('tr');
+            listItem.innerHTML = `<td>${file.name}</td><td><span class="progress-percentage">0%</span></td>`;
             let progressContainer = document.createElement('div');
             progressContainer.className = 'progress-container';
             let progressBar = document.createElement('div');
             progressBar.className = 'progress-bar';
             progressContainer.appendChild(progressBar);
-            listItem.appendChild(progressContainer);
+            listItem.querySelector('td:last-child').appendChild(progressContainer);
             fileList.appendChild(listItem);
 
             uploadFile(file, progressBar, listItem.querySelector('.progress-percentage'), function(success) {
@@ -57,9 +49,8 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
                 updateSummary(successfulUploads, failedUploads, totalFiles);
                 
                 // Mostrar botão de processamento se houver uploads bem-sucedidos
-                var processButton = document.getElementById('processButton');
-                if (processButton && successfulUploads > 0) {
-                    processButton.style.display = 'block';
+                if (successfulUploads > 0) {
+                    document.getElementById('processButton').style.display = 'block';
                 }
             });
         }
@@ -114,15 +105,12 @@ function uploadFile(file, progressBar, progressPercentage, callback) {
 
 function updateSummary(successfulUploads, failedUploads, totalFiles) {
     var summary = document.getElementById('summary');
-    
-    if (summary) {
-        summary.innerHTML = `
-            <strong>Resumo:</strong><br>
-            Total de Arquivos: ${totalFiles}<br>
-            Sucesso: ${successfulUploads}<br>
-            Falhas: ${failedUploads}
-        `;
-    }
+    summary.innerHTML = `
+        <strong>Resumo:</strong><br>
+        Total de Arquivos: ${totalFiles}<br>
+        Sucesso: ${successfulUploads}<br>
+        Falhas: ${failedUploads}
+    `;
 }
 
 function loadUploadedFiles() {
@@ -131,18 +119,16 @@ function loadUploadedFiles() {
             if (!response.ok) {
                 throw new Error('Falha ao carregar os arquivos: ' + response.status);
             }
-            return response.json(); // Certifique-se de que o retorno seja JSON
+            return response.json(); // Agora espera JSON diretamente
         })
         .then(data => {
-            if (data.files && data.files.length > 0) {
-                var uploadedFilesContainer = document.getElementById('uploadedFiles');
+            var uploadedFilesContainer = document.getElementById('uploadedFiles');
+            if (uploadedFilesContainer) {
                 uploadedFilesContainer.innerHTML = '<h3>Arquivos Carregados:</h3><ul>';
                 data.files.forEach(file => {
                     uploadedFilesContainer.innerHTML += `<li>${file}</li>`;
                 });
                 uploadedFilesContainer.innerHTML += '</ul>';
-            } else {
-                alert('Nenhum arquivo encontrado.');
             }
         })
         .catch(error => {
@@ -150,7 +136,6 @@ function loadUploadedFiles() {
             alert('Erro ao carregar arquivos existentes.');
         });
 }
-
 
 document.getElementById('processButton').addEventListener('click', function() {
     fetch('/.netlify/functions/process-pdfs', { method: 'POST' })
