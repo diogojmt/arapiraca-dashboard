@@ -115,14 +115,25 @@ function updateSummary(successfulUploads, failedUploads, totalFiles) {
 
 function loadUploadedFiles() {
     fetch('/.netlify/functions/list-uploads', { method: 'GET' })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Falha ao carregar os arquivos: ' + response.status);
+            }
+            return response.text(); // Mudança para text()
+        })
         .then(data => {
-            var uploadedFilesContainer = document.getElementById('uploadedFiles');
-            uploadedFilesContainer.innerHTML = '<h3>Arquivos Carregados:</h3><ul>';
-            data.files.forEach(file => {
-                uploadedFilesContainer.innerHTML += `<li>${file}</li>`;
-            });
-            uploadedFilesContainer.innerHTML += '</ul>';
+            try {
+                const jsonData = JSON.parse(data); // Tentar fazer o parse para JSON
+                var uploadedFilesContainer = document.getElementById('uploadedFiles');
+                uploadedFilesContainer.innerHTML = '<h3>Arquivos Carregados:</h3><ul>';
+                jsonData.files.forEach(file => {
+                    uploadedFilesContainer.innerHTML += `<li>${file}</li>`;
+                });
+                uploadedFilesContainer.innerHTML += '</ul>';
+            } catch (error) {
+                console.error('Erro ao fazer o parse do JSON:', error);
+                alert('Erro ao carregar arquivos. Resposta inesperada do servidor.');
+            }
         })
         .catch(error => {
             console.error('Erro ao carregar arquivos:', error);
