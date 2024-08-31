@@ -20,16 +20,17 @@ exports.handler = async function(event, context) {
             const data = JSON.parse(event.body);
             const fileBuffer = Buffer.from(data.fileContent, 'base64');
 
-            // Cria um arquivo no bucket com o nome fornecido
-            const file = bucket.file(data.fileName);
-            console.log(`Tentando salvar o arquivo: ${data.fileName}`);
+            // Define o caminho do arquivo na "pasta" uploads
+            const filePath = `uploads/${data.fileName}`;
+            const file = bucket.file(filePath);
+            console.log(`Tentando salvar o arquivo: ${filePath}`);
 
             // Salva o arquivo no bucket
             await file.save(fileBuffer, {
                 metadata: { contentType: 'application/pdf' }
             });
 
-            console.log(`Arquivo ${data.fileName} salvo com sucesso.`);
+            console.log(`Arquivo ${filePath} salvo com sucesso.`);
             // Retorna uma resposta de sucesso
             return {
                 statusCode: 200,
