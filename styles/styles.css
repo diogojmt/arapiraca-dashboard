@@ -13,7 +13,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 400px;
     text-align: center;
 }
 
@@ -39,10 +39,18 @@ button:hover {
     background-color: #0056b3;
 }
 
+#feedbackContainer {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+}
+
 ul#fileList {
     list-style-type: none;
     padding: 0;
-    margin: 20px 0 0;
+    margin: 0;
     text-align: left;
 }
 

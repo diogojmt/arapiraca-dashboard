@@ -19,8 +19,12 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
     var files = document.getElementById('fileInput').files;
     var fileList = document.getElementById('fileList');
     fileList.innerHTML = '';
+    
+    var totalFiles = files.length;
+    var successfulUploads = 0;
+    var failedUploads = 0;
 
-    if (files.length > 0) {
+    if (totalFiles > 0) {
         for (let i = 0; i < files.length; i++) {
             let file = files[i];
             let listItem = document.createElement('li');
@@ -33,14 +37,21 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
             listItem.appendChild(progressContainer);
             fileList.appendChild(listItem);
 
-            uploadFile(file, progressBar, listItem.querySelector('.progress-percentage'));
+            uploadFile(file, progressBar, listItem.querySelector('.progress-percentage'), function(success) {
+                if (success) {
+                    successfulUploads++;
+                } else {
+                    failedUploads++;
+                }
+                updateSummary(successfulUploads, failedUploads, totalFiles);
+            });
         }
     } else {
         alert('Por favor, selecione um ou mais arquivos.');
     }
 });
 
-function uploadFile(file, progressBar, progressPercentage) {
+function uploadFile(file, progressBar, progressPercentage, callback) {
     var reader = new FileReader();
     reader.onload = function(event) {
         var fileContent = event.target.result.split(',')[1];
@@ -56,11 +67,13 @@ function uploadFile(file, progressBar, progressPercentage) {
         .then(data => {
             progressBar.style.width = '100%';
             progressPercentage.textContent = '100% - Concluído!';
+            callback(true);
         })
         .catch(error => {
             console.error('Erro:', error);
             progressPercentage.textContent = 'Erro no upload';
             progressBar.style.backgroundColor = 'red';
+            callback(false);
         });
     };
 
@@ -77,4 +90,14 @@ function uploadFile(file, progressBar, progressPercentage) {
             clearInterval(interval);
         }
     }, 100);
+}
+
+function updateSummary(successfulUploads, failedUploads, totalFiles) {
+    var summary = document.getElementById('summary');
+    summary.innerHTML = `
+        <strong>Resumo:</strong><br>
+        Total de Arquivos: ${totalFiles}<br>
+        Sucesso: ${successfulUploads}<br>
+        Falhas: ${failedUploads}
+    `;
 }
