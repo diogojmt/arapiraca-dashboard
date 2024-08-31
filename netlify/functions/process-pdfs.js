@@ -22,13 +22,16 @@ exports.handler = async function(event, context) {
             const allData = [];
             for (const file of files) {
                 const data = await processPdf(file);
-                if (data && data.length > 0) {
+                if (data) {
                     allData.push(...data);
                 }
             }
 
             if (allData.length === 0) {
-                throw new Error('Nenhum dado válido encontrado nos PDFs.');
+                return {
+                    statusCode: 400,
+                    body: JSON.stringify({ message: 'Nenhum dado válido encontrado nos PDFs.' })
+                };
             }
 
             await writeCsv(allData);
@@ -40,8 +43,8 @@ exports.handler = async function(event, context) {
         } catch (error) {
             console.error('Erro durante o processamento:', error);
             return {
-                statusCode: 400,
-                body: JSON.stringify({ message: error.message || 'Erro durante o processamento dos PDFs.' })
+                statusCode: 500,
+                body: JSON.stringify({ message: 'Erro durante o processamento dos PDFs.' })
             };
         }
     }
@@ -53,7 +56,7 @@ exports.handler = async function(event, context) {
 };
 
 async function processPdf(file) {
-    const tempFilePath = path.join('/tmp', file.name); // Salvando diretamente no diretório temporário sem "uploads/"
+    const tempFilePath = path.join('/tmp', file.name.split('/').pop());
     await file.download({ destination: tempFilePath });
 
     const dataBuffer = fs.readFileSync(tempFilePath);
@@ -62,7 +65,6 @@ async function processPdf(file) {
     const parsedData = extractData(data.text);
     return parsedData;
 }
-
 
 function extractData(text) {
     const lines = text.split('\n');
@@ -79,12 +81,12 @@ function extractData(text) {
             }
         }
 
-        const match = line.match(/^(\d+)\s+([A-Z\s]+)\s+([\d,]+\.\d{2})$/);
+        const match = line.match(/^(\d+)\s+(.+?)\s+([\d,]+\.\d{2})$/);
         if (match) {
             const [_, codigo, descricao, total] = match;
             data.push({
                 codigo,
-                descricao: descricao.trim(),
+                descricao,
                 total: total.replace('.', '').replace(',', '.'),
                 mesAno
             });
