@@ -131,23 +131,18 @@ function loadUploadedFiles() {
             if (!response.ok) {
                 throw new Error('Falha ao carregar os arquivos: ' + response.status);
             }
-            return response.text(); // Mudança para text()
+            return response.json(); // Certifique-se de que o retorno seja JSON
         })
         .then(data => {
-            try {
-                const jsonData = JSON.parse(data); // Tentar fazer o parse para JSON
+            if (data.files && data.files.length > 0) {
                 var uploadedFilesContainer = document.getElementById('uploadedFiles');
-                
-                if (uploadedFilesContainer) {
-                    uploadedFilesContainer.innerHTML = '<h3>Arquivos Carregados:</h3><ul>';
-                    jsonData.files.forEach(file => {
-                        uploadedFilesContainer.innerHTML += `<li>${file}</li>`;
-                    });
-                    uploadedFilesContainer.innerHTML += '</ul>';
-                }
-            } catch (error) {
-                console.error('Erro ao fazer o parse do JSON:', error);
-                alert('Erro ao carregar arquivos. Resposta inesperada do servidor.');
+                uploadedFilesContainer.innerHTML = '<h3>Arquivos Carregados:</h3><ul>';
+                data.files.forEach(file => {
+                    uploadedFilesContainer.innerHTML += `<li>${file}</li>`;
+                });
+                uploadedFilesContainer.innerHTML += '</ul>';
+            } else {
+                alert('Nenhum arquivo encontrado.');
             }
         })
         .catch(error => {
@@ -155,6 +150,7 @@ function loadUploadedFiles() {
             alert('Erro ao carregar arquivos existentes.');
         });
 }
+
 
 document.getElementById('processButton').addEventListener('click', function() {
     fetch('/.netlify/functions/process-pdfs', { method: 'POST' })
