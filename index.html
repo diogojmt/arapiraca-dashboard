@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de Relatórios - Arapiraca</title>
+    <!-- Ajuste o caminho para o arquivo CSS -->
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Usuário" required>
+            <input type="password" id="password" placeholder="Senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+
+    <div class="upload-container" style="display:none;">
+        <h2>Upload de Relatórios PDF</h2>
+        <form id="uploadForm">
+            <input type="file" id="fileInput" accept=".pdf" required>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+
+    <!-- Ajuste o caminho para o arquivo JavaScript -->
+    <script src="scripts/script.js"></script>
+</body>
+</html>
