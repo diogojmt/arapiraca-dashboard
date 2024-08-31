@@ -25,11 +25,17 @@
             <button type="submit">Enviar Arquivos</button>
         </form>
 
+        <!-- Lista de arquivos carregados -->
+        <div id="uploadedFiles">
+            <h3>Arquivos Carregados:</h3>
+            <ul id="fileList"></ul>
+        </div>
+
         <!-- Botão para processar os PDFs e gerar o CSV -->
         <button id="processButton" style="display: none;">Processar PDFs</button>
 
+        <!-- Feedback e resumo -->
         <div id="feedbackContainer">
-            <ul id="fileList"></ul>
             <div id="summary" style="margin-top: 20px;"></div>
         </div>
     </div>

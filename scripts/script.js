@@ -8,6 +8,9 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     if (username === 'admin' && password === '1234') {
         document.querySelector('.login-container').style.display = 'none';
         document.querySelector('.upload-container').style.display = 'block';
+
+        // Carregar e exibir arquivos existentes na pasta uploads
+        loadUploadedFiles();
     } else {
         alert('Credenciais inválidas!');
     }
@@ -73,6 +76,9 @@ function uploadFile(file, progressBar, progressPercentage, callback) {
             progressBar.style.width = '100%';
             progressPercentage.textContent = '100% - Concluído!';
             callback(true);
+
+            // Atualizar a lista de arquivos carregados
+            loadUploadedFiles();
         })
         .catch(error => {
             console.error('Erro:', error);
@@ -105,6 +111,23 @@ function updateSummary(successfulUploads, failedUploads, totalFiles) {
         Sucesso: ${successfulUploads}<br>
         Falhas: ${failedUploads}
     `;
+}
+
+function loadUploadedFiles() {
+    fetch('/.netlify/functions/list-uploads', { method: 'GET' })
+        .then(response => response.json())
+        .then(data => {
+            var uploadedFilesContainer = document.getElementById('uploadedFiles');
+            uploadedFilesContainer.innerHTML = '<h3>Arquivos Carregados:</h3><ul>';
+            data.files.forEach(file => {
+                uploadedFilesContainer.innerHTML += `<li>${file}</li>`;
+            });
+            uploadedFilesContainer.innerHTML += '</ul>';
+        })
+        .catch(error => {
+            console.error('Erro ao carregar arquivos:', error);
+            alert('Erro ao carregar arquivos existentes.');
+        });
 }
 
 document.getElementById('processButton').addEventListener('click', function() {

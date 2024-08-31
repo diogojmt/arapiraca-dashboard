@@ -72,3 +72,18 @@ ul#fileList li {
     overflow: hidden;
     margin-bottom: 5px;
 }
+
+/* Estilo para a seção de arquivos carregados */
+#uploadedFiles {
+    margin-top: 20px;
+    text-align: left;
+}
+
+#uploadedFiles ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#uploadedFiles ul li {
+    margin-bottom: 5px;
+}
