@@ -1,0 +1,53 @@
+[33mcommit 85cac28075b55e2ec2011be8a485434640238dcb[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Diogo Tenório <diogojmt@gmail.com>
+Date:   Sat Aug 31 10:31:01 2024 -0300
+
+    Adicionar arapiraca-dashboard.git ao .gitignore
+
+.gitignore
+
+[33mcommit 8ec7162b820143e27f4242531713efad740622fa[m
+Author: Diogo Tenório <diogojmt@gmail.com>
+Date:   Sat Aug 31 10:23:50 2024 -0300
+
+    Remover arquivo de credenciais e adicioná-lo ao .gitignore
+
+.gitignore
+
+[33mcommit 81d631ea59e3f0acbe1e93717a2714ceeea6f19f[m
+Author: Diogo Tenório <diogojmt@gmail.com>
+Date:   Sat Aug 31 10:18:18 2024 -0300
+
+    Remover arquivo de credenciais do histórico e adicioná-lo ao .gitignore
+
+netlify/functions/arrecadacao-arapiraca-firebase-adminsdk-n32cy-fcfd6222a5.json
+
+[33mcommit a1cc8aaf03cdb04b2ffda93317720372aa83bc4e[m
+Author: Diogo Tenório <diogojmt@gmail.com>
+Date:   Sat Aug 31 10:15:52 2024 -0300
+
+    Adicionar configuração do Firebase Admin SDK para upload de PDFs
+
+netlify/functions/arrecadacao-arapiraca-firebase-adminsdk-n32cy-fcfd6222a5.json
+netlify/functions/upload-pdf.js
+
+[33mcommit e20fafb5e79a55ec7bf986c660984362c3b058e7[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Diogo Tenório <diogojmt@gmail.com>
+Date:   Sat Aug 31 09:45:09 2024 -0300
+
+    Adicionar função de upload de PDFs
+
+index.html
+netlify/functions/upload-pdf.js
+
+[33mcommit cbc28fb0b19c9e371beddef10a49cc5799425d59[m
+Author: Diogo Tenório <diogojmt@gmail.com>
+Date:   Sat Aug 31 09:24:31 2024 -0300
+
+    Primeiro commit - Interface de upload de relatórios PDF
+
+README.md
+index.html
+scripts/script.js
+server/server.js
+styles/styles.css
