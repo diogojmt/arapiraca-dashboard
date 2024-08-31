@@ -109,9 +109,16 @@ function updateSummary(successfulUploads, failedUploads, totalFiles) {
 
 document.getElementById('processButton').addEventListener('click', function() {
     fetch('/.netlify/functions/process-pdfs', { method: 'POST' })
-        .then(response => response.json())
+        .then(response => response.text())  // Mudei para .text() para ver a resposta como string
         .then(data => {
-            alert(data.message);
+            console.log('Resposta do servidor:', data);
+            try {
+                const jsonData = JSON.parse(data);  // Tenta fazer o parse
+                alert(jsonData.message);
+            } catch (error) {
+                console.error('Erro ao fazer o parse do JSON:', error);
+                alert('Erro ao processar os PDFs.');
+            }
         })
         .catch(error => {
             console.error('Erro no processamento:', error);

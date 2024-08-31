@@ -51,7 +51,7 @@ exports.handler = async function(event, context) {
     // Retorna uma resposta de método não permitido se não for POST
     return {
         statusCode: 405,
-        body: 'Método não permitido'
+        body: JSON.stringify({ message: 'Método não permitido' })
     };
 };
 
@@ -86,7 +86,7 @@ exports.processPdfs = async function(event, context) {
 
     return {
         statusCode: 405,
-        body: 'Método não permitido'
+        body: JSON.stringify({ message: 'Método não permitido' })
     };
 };
 
@@ -145,6 +145,8 @@ async function writeCsv(data) {
 
     await writer.writeRecords(data);
 
-    // Fazer upload do CSV para o Firebase Storage
-    await bucket.upload(csvFilePath, { destination: 'dados.csv' });
+    const csvFile = bucket.file('dados.csv');
+    await csvFile.save(fs.readFileSync(csvFilePath), {
+        metadata: { contentType: 'text/csv' }
+    });
 }
