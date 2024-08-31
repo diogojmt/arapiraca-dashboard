@@ -14,8 +14,49 @@ admin.initializeApp({
 
 const bucket = admin.storage().bucket();
 
-// Função serverless exportada
+// Função para upload de PDFs
 exports.handler = async function(event, context) {
+    if (event.httpMethod === 'POST') {
+        try {
+            // Faz o parse do corpo da requisição
+            const data = JSON.parse(event.body);
+            const fileBuffer = Buffer.from(data.fileContent, 'base64');
+            const fileName = `uploads/${data.fileName}`;
+
+            // Cria um arquivo no bucket com o nome fornecido
+            const file = bucket.file(fileName);
+            console.log(`Tentando salvar o arquivo: ${fileName}`);
+
+            // Salva o arquivo no bucket
+            await file.save(fileBuffer, {
+                metadata: { contentType: 'application/pdf' }
+            });
+
+            console.log(`Arquivo ${fileName} salvo com sucesso.`);
+            // Retorna uma resposta de sucesso
+            return {
+                statusCode: 200,
+                body: JSON.stringify({ message: 'Upload bem-sucedido!' })
+            };
+        } catch (error) {
+            console.error('Erro ao enviar o arquivo:', error);
+            // Retorna uma resposta de erro
+            return {
+                statusCode: 500,
+                body: JSON.stringify({ message: 'Erro ao enviar o arquivo.' })
+            };
+        }
+    }
+
+    // Retorna uma resposta de método não permitido se não for POST
+    return {
+        statusCode: 405,
+        body: 'Método não permitido'
+    };
+};
+
+// Função serverless para processar os PDFs e gerar o CSV
+exports.processPdfs = async function(event, context) {
     if (event.httpMethod === 'POST') {
         try {
             const [files] = await bucket.getFiles({ prefix: 'uploads/' });
@@ -49,7 +90,6 @@ exports.handler = async function(event, context) {
     };
 };
 
-// Função para processar um PDF individual
 async function processPdf(file) {
     const tempFilePath = path.join('/tmp', file.name);
     await file.download({ destination: tempFilePath });
@@ -61,14 +101,12 @@ async function processPdf(file) {
     return parsedData;
 }
 
-// Função para extrair os dados necessários do texto do PDF
 function extractData(text) {
     const lines = text.split('\n');
     const data = [];
     let mesAno = '';
 
     lines.forEach(line => {
-        // Identificar a Data de Movimento
         if (line.includes('Data de Movimento')) {
             const dateMatch = line.match(/(\d{2}\/\d{2}\/\d{4})/g);
             if (dateMatch && dateMatch.length > 0) {
@@ -78,7 +116,6 @@ function extractData(text) {
             }
         }
 
-        // Extração das colunas relevantes
         const match = line.match(/^(\d+)\s+(.+?)\s+([\d,]+\.\d{2})$/);
         if (match) {
             const [_, codigo, descricao, total] = match;
@@ -94,7 +131,6 @@ function extractData(text) {
     return data;
 }
 
-// Função para escrever os dados extraídos no CSV
 async function writeCsv(data) {
     const csvFilePath = path.join('/tmp', 'dados.csv');
     const writer = csvWriter({
