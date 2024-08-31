@@ -17,25 +17,30 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
     event.preventDefault();
     
     var files = document.getElementById('fileInput').files;
-    
-    if (files.length > 0) {
-        document.getElementById('progressWrapper').style.display = 'block';
-        var totalFiles = files.length;
-        var uploadedFiles = 0;
+    var fileList = document.getElementById('fileList');
+    fileList.innerHTML = '';
 
+    if (files.length > 0) {
         for (let i = 0; i < files.length; i++) {
             let file = files[i];
-            uploadFile(file, totalFiles, (progress) => {
-                uploadedFiles++;
-                updateProgressBar((uploadedFiles / totalFiles) * 100);
-            });
+            let listItem = document.createElement('li');
+            listItem.innerHTML = `<strong>${file.name}</strong> <span class="progress-percentage">0%</span>`;
+            let progressContainer = document.createElement('div');
+            progressContainer.className = 'progress-container';
+            let progressBar = document.createElement('div');
+            progressBar.className = 'progress-bar';
+            progressContainer.appendChild(progressBar);
+            listItem.appendChild(progressContainer);
+            fileList.appendChild(listItem);
+
+            uploadFile(file, progressBar, listItem.querySelector('.progress-percentage'));
         }
     } else {
         alert('Por favor, selecione um ou mais arquivos.');
     }
 });
 
-function uploadFile(file, totalFiles, onProgress) {
+function uploadFile(file, progressBar, progressPercentage) {
     var reader = new FileReader();
     reader.onload = function(event) {
         var fileContent = event.target.result.split(',')[1];
@@ -49,17 +54,27 @@ function uploadFile(file, totalFiles, onProgress) {
         })
         .then(response => response.json())
         .then(data => {
-            onProgress();
-            document.getElementById('uploadStatus').textContent = `Arquivo ${file.name} enviado com sucesso!`;
+            progressBar.style.width = '100%';
+            progressPercentage.textContent = '100% - Concluído!';
         })
-        .catch(error => console.error('Erro:', error));
+        .catch(error => {
+            console.error('Erro:', error);
+            progressPercentage.textContent = 'Erro no upload';
+            progressBar.style.backgroundColor = 'red';
+        });
     };
-    reader.readAsDataURL(file);
-}
 
-function updateProgressBar(percentage) {
-    document.getElementById('progressBar').style.width = percentage + '%';
-    if (percentage === 100) {
-        document.getElementById('uploadStatus').textContent = 'Todos os arquivos foram enviados!';
-    }
+    reader.readAsDataURL(file);
+
+    // Simular progresso
+    let progress = 0;
+    let interval = setInterval(() => {
+        if (progress < 100) {
+            progress += 10;
+            progressBar.style.width = progress + '%';
+            progressPercentage.textContent = progress + '%';
+        } else {
+            clearInterval(interval);
+        }
+    }, 100);
 }
