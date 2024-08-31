@@ -44,6 +44,11 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
                     failedUploads++;
                 }
                 updateSummary(successfulUploads, failedUploads, totalFiles);
+                
+                // Mostrar botão de processamento se houver uploads bem-sucedidos
+                if (successfulUploads > 0) {
+                    document.getElementById('processButton').style.display = 'block';
+                }
             });
         }
     } else {
@@ -101,3 +106,15 @@ function updateSummary(successfulUploads, failedUploads, totalFiles) {
         Falhas: ${failedUploads}
     `;
 }
+
+document.getElementById('processButton').addEventListener('click', function() {
+    fetch('/.netlify/functions/process-pdfs', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+        })
+        .catch(error => {
+            console.error('Erro no processamento:', error);
+            alert('Erro ao processar os PDFs.');
+        });
+});
