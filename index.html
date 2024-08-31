@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload de Relatórios - Arapiraca</title>
-    <!-- Ajuste o caminho para o arquivo CSS -->
-    <link rel="stylesheet" href="styles/styles.css">
+    <title>Login e Upload</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="login-container">
@@ -17,15 +16,14 @@
         </form>
     </div>
 
-    <div class="upload-container" style="display:none;">
-        <h2>Upload de Relatórios PDF</h2>
-        <form id="uploadForm" action="/.netlify/functions/upload-pdf" method="POST">
-			<input type="file" id="fileInput" accept=".pdf" required>
-			<button type="submit">Enviar</button>
-		</form>
+    <div class="upload-container" style="display: none;">
+        <h2>Upload de Arquivo PDF</h2>
+        <form id="uploadForm">
+            <input type="file" id="fileInput" accept="application/pdf" required>
+            <button type="submit">Enviar</button>
+        </form>
     </div>
 
-    <!-- Ajuste o caminho para o arquivo JavaScript -->
-    <script src="scripts/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

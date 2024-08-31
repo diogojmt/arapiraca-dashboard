@@ -6,7 +6,6 @@ admin.initializeApp({
   storageBucket: 'arrecadacao-arapiraca.appspot.com'  // Substitua com o ID real do seu projeto
 });
 
-// Agora você pode usar `admin` para interagir com o Firebase, como no exemplo de upload para o Storage
 const bucket = admin.storage().bucket();
 
 exports.handler = async function(event, context) {
