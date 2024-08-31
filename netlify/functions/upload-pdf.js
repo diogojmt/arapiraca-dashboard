@@ -1,31 +1,43 @@
 const admin = require('firebase-admin');
-const serviceAccount = require('./path/to/your-service-account-file.json');
+
+// Carrega as credenciais a partir da variável de ambiente
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   storageBucket: 'arrecadacao-arapiraca.appspot.com'  // Substitua com o ID real do seu projeto
 });
 
+// Obtém uma referência ao bucket de armazenamento
 const bucket = admin.storage().bucket();
 
+// Função serverless exportada
 exports.handler = async function(event, context) {
+    // Verifica se a requisição é do tipo POST
     if (event.httpMethod === 'POST') {
         try {
+            // Faz o parse do corpo da requisição
             const data = JSON.parse(event.body);
             const fileBuffer = Buffer.from(data.fileContent, 'base64');
 
+            // Cria um arquivo no bucket com o nome fornecido
             const file = bucket.file(data.fileName);
+            console.log(`Tentando salvar o arquivo: ${data.fileName}`);
+
+            // Salva o arquivo no bucket
             await file.save(fileBuffer, {
                 metadata: { contentType: 'application/pdf' }
             });
 
-            console.log(`Arquivo ${data.fileName} enviado com sucesso.`);
+            console.log(`Arquivo ${data.fileName} salvo com sucesso.`);
+            // Retorna uma resposta de sucesso
             return {
                 statusCode: 200,
                 body: JSON.stringify({ message: 'Upload bem-sucedido!' })
             };
         } catch (error) {
             console.error('Erro ao enviar o arquivo:', error);
+            // Retorna uma resposta de erro
             return {
                 statusCode: 500,
                 body: JSON.stringify({ message: 'Erro ao enviar o arquivo.' })
@@ -33,6 +45,7 @@ exports.handler = async function(event, context) {
         }
     }
 
+    // Retorna uma resposta de método não permitido se não for POST
     return {
         statusCode: 405,
         body: 'Método não permitido'
