@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
+    <!-- Seção de Login -->
     <div class="login-container">
         <h2>Login</h2>
         <form id="loginForm">
@@ -16,12 +17,17 @@
         </form>
     </div>
 
+    <!-- Seção de Upload (oculta até o login bem-sucedido) -->
     <div class="upload-container" style="display: none;">
-        <h2>Upload de Arquivo PDF</h2>
+        <h2>Upload de Arquivos PDF</h2>
         <form id="uploadForm">
-            <input type="file" id="fileInput" accept="application/pdf" required>
+            <input type="file" id="fileInput" accept="application/pdf" multiple required>
             <button type="submit">Enviar</button>
         </form>
+        <div id="progressWrapper" style="display:none;">
+            <div id="progressBar"></div>
+        </div>
+        <p id="uploadStatus"></p>
     </div>
 
     <script src="scripts/script.js"></script>
