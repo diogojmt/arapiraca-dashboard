@@ -19,10 +19,10 @@
 
     <div class="upload-container" style="display:none;">
         <h2>Upload de Relatórios PDF</h2>
-        <form id="uploadForm">
-            <input type="file" id="fileInput" accept=".pdf" required>
-            <button type="submit">Enviar</button>
-        </form>
+        <form id="uploadForm" action="/.netlify/functions/upload-pdf" method="POST">
+			<input type="file" id="fileInput" accept=".pdf" required>
+			<button type="submit">Enviar</button>
+		</form>
     </div>
 
     <!-- Ajuste o caminho para o arquivo JavaScript -->
