@@ -17,22 +17,42 @@ const bucket = admin.storage().bucket();
 exports.handler = async function(event, context) {
     if (event.httpMethod === 'POST') {
         try {
+            console.log("Iniciando processamento dos PDFs...");
             const [files] = await bucket.getFiles({ prefix: 'uploads/' });
+
+            if (files.length === 0) {
+                console.error("Nenhum arquivo encontrado na pasta 'uploads/'");
+                return {
+                    statusCode: 400,
+                    body: JSON.stringify({ message: 'Nenhum arquivo encontrado para processar.' })
+                };
+            }
 
             const allData = [];
             for (const file of files) {
+                console.log(`Processando arquivo: ${file.name}`);
                 const data = await processPdf(file);
                 if (data) {
                     allData.push(...data);
+                } else {
+                    console.error(`Nenhum dado extraído do arquivo: ${file.name}`);
                 }
             }
 
-            await writeCsv(allData);
-
-            return {
-                statusCode: 200,
-                body: JSON.stringify({ message: 'Processamento concluído e dados.csv gerado com sucesso!' })
-            };
+            if (allData.length > 0) {
+                await writeCsv(allData);
+                console.log("Processamento concluído com sucesso!");
+                return {
+                    statusCode: 200,
+                    body: JSON.stringify({ message: 'Processamento concluído e dados.csv gerado com sucesso!' })
+                };
+            } else {
+                console.error("Nenhum dado foi extraído de todos os arquivos.");
+                return {
+                    statusCode: 400,
+                    body: JSON.stringify({ message: 'Nenhum dado válido encontrado nos PDFs.' })
+                };
+            }
         } catch (error) {
             console.error('Erro durante o processamento:', error);
             return {
@@ -49,14 +69,21 @@ exports.handler = async function(event, context) {
 };
 
 async function processPdf(file) {
-    const tempFilePath = path.join('/tmp', file.name);
-    await file.download({ destination: tempFilePath });
+    try {
+        const tempFilePath = path.join('/tmp', file.name);
+        console.log(`Baixando arquivo temporário para: ${tempFilePath}`);
+        await file.download({ destination: tempFilePath });
 
-    const dataBuffer = fs.readFileSync(tempFilePath);
-    const data = await pdfParse(dataBuffer);
+        const dataBuffer = fs.readFileSync(tempFilePath);
+        const data = await pdfParse(dataBuffer);
 
-    const parsedData = extractData(data.text);
-    return parsedData;
+        console.log(`Arquivo processado: ${file.name}`);
+        const parsedData = extractData(data.text);
+        return parsedData;
+    } catch (error) {
+        console.error(`Erro ao processar o arquivo ${file.name}:`, error);
+        return null;
+    }
 }
 
 function extractData(text) {
@@ -71,6 +98,7 @@ function extractData(text) {
                 const [, endDate] = dateMatch;
                 const [endDay, endMonth, endYear] = endDate.split('/');
                 mesAno = `${endMonth}/${endYear}`;
+                console.log(`Data de Movimento identificada: ${mesAno}`);
             }
         }
 
@@ -90,21 +118,29 @@ function extractData(text) {
 }
 
 async function writeCsv(data) {
-    const csvFilePath = path.join('/tmp', 'dados.csv');
-    const writer = csvWriter({
-        path: csvFilePath,
-        header: [
-            { id: 'codigo', title: 'Código' },
-            { id: 'descricao', title: 'Descrição do código tributário' },
-            { id: 'total', title: 'Total' },
-            { id: 'mesAno', title: 'Mês/Ano' }
-        ]
-    });
+    try {
+        const csvFilePath = path.join('/tmp', 'dados.csv');
+        console.log(`Escrevendo dados no CSV em: ${csvFilePath}`);
+        const writer = csvWriter({
+            path: csvFilePath,
+            header: [
+                { id: 'codigo', title: 'Código' },
+                { id: 'descricao', title: 'Descrição do código tributário' },
+                { id: 'total', title: 'Total' },
+                { id: 'mesAno', title: 'Mês/Ano' }
+            ]
+        });
 
-    await writer.writeRecords(data);
+        await writer.writeRecords(data);
+        console.log("CSV gerado com sucesso.");
 
-    const csvFile = bucket.file('dados.csv');
-    await csvFile.save(fs.readFileSync(csvFilePath), {
-        metadata: { contentType: 'text/csv' }
-    });
+        const csvFile = bucket.file('dados.csv');
+        await csvFile.save(fs.readFileSync(csvFilePath), {
+            metadata: { contentType: 'text/csv' }
+        });
+        console.log("CSV salvo no bucket.");
+    } catch (error) {
+        console.error("Erro ao gerar ou salvar o CSV:", error);
+        throw error;
+    }
 }
