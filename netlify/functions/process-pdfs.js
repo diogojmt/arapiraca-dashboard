@@ -53,7 +53,7 @@ exports.handler = async function(event, context) {
 };
 
 async function processPdf(file) {
-    const tempFilePath = path.join('/tmp', file.name);
+    const tempFilePath = path.join('/tmp', file.name); // Salvando diretamente no diretório temporário sem "uploads/"
     await file.download({ destination: tempFilePath });
 
     const dataBuffer = fs.readFileSync(tempFilePath);
@@ -62,6 +62,7 @@ async function processPdf(file) {
     const parsedData = extractData(data.text);
     return parsedData;
 }
+
 
 function extractData(text) {
     const lines = text.split('\n');
