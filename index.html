@@ -22,7 +22,7 @@
         <h2>Upload e Processamento de Arquivos PDF</h2>
         <form id="uploadForm">
             <input type="file" id="fileInput" accept="application/pdf" multiple required>
-            <button type="submit">Enviar Arquivos</button>
+            <button type="submit" id="uploadButton">Enviar Arquivos</button>
         </form>
 
         <!-- Container para agrupar arquivos e botões -->
@@ -55,8 +55,9 @@
                 </table>
             </div>
 
-            <!-- Botão para processar os PDFs e gerar o CSV -->
+            <!-- Botões para processar os PDFs e baixar o dados.csv -->
             <button id="processButton">Processar PDFs</button>
+            <button id="downloadCsvButton" style="display: none;">Baixar dados.csv</button>
         </div>
     </div>
 

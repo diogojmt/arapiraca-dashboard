@@ -93,17 +93,14 @@ button:hover {
     padding-top: 10px;
 }
 
-/* Garantir que o botão de processar fique sempre visível */
+/* Ajuste para os botões */
 #fileButtonContainer {
     position: relative;
-    padding-bottom: 60px; /* Espaço para o botão */
+    padding-bottom: 100px; /* Espaço para acomodar todos os botões */
 }
 
-#processButton {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
+#processButton, #downloadCsvButton, #uploadButton {
+    display: block;
+    width: 100%;
     margin-top: 10px;
 }
