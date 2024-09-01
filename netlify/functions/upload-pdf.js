@@ -91,35 +91,39 @@ exports.processPdfs = async function(event, context) {
 };
 
 async function processPdf(file) {
-    const tempFilePath = path.join('/tmp', file.name);
+    const tempFilePath = path.join('/tmp', file.name.split('/').pop());
     await file.download({ destination: tempFilePath });
 
     const dataBuffer = fs.readFileSync(tempFilePath);
     const data = await pdfParse(dataBuffer);
 
-    const parsedData = extractData(data.text);
+    // Extração do Mês/Ano a partir do nome do arquivo
+    const fileName = file.name.split('/').pop();
+    const fileDateMatch = fileName.match(/(\d{2})(\d{4})/); // Espera um nome no formato MMYYYY
+    let mesAno = '';
+
+    if (fileDateMatch) {
+        const [, month, year] = fileDateMatch;
+        mesAno = `${month}/${year}`;
+        console.log("Mês/Ano capturado a partir do nome do arquivo:", mesAno);
+    } else {
+        console.log("Não foi possível capturar a data de movimento do nome do arquivo.");
+    }
+
+    const parsedData = extractData(data.text, mesAno);
     return parsedData;
 }
 
-function extractData(text) {
+function extractData(text, mesAno) {
     const lines = text.split('\n');
     const data = [];
-    let mesAno = '';
+
+    console.log("Iniciando o processamento das linhas...");
 
     lines.forEach(line => {
         console.log("Processando linha:", line);
 
-        // Captura a Data de Movimento no formato "01/01/2019 a 31/01/2019"
-        if (line.includes('Data de Movimento:')) {
-            const dateMatch = line.match(/(\d{2})\/(\d{2})\/(\d{4}) a \d{2}\/\d{2}\/\d{4}/);
-            if (dateMatch) {
-                const [, day, month, year] = dateMatch;
-                mesAno = `${month}/${year}`;
-                console.log("Mês/Ano capturado:", mesAno);
-            }
-        }
-
-        // Expressão regular para capturar o código, descrição e total
+        // Captura código, descrição e total
         const match = line.match(/^(\d+)\s+(.+?)\s+([\d.,]+\d{2})$/);
         if (match) {
             const [_, codigo, descricao, total] = match;
