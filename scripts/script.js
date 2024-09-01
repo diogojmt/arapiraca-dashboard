@@ -126,7 +126,16 @@ function loadUploadedFiles() {
             if (uploadedFilesTable) {
                 uploadedFilesTable.innerHTML = ''; // Limpa a tabela antes de adicionar os arquivos
                 data.files.forEach(file => {
-                    let row = `<tr><td>${file}</td></tr>`;
+                    let fileName = file.split('/').pop(); // Obtém apenas o nome do arquivo
+                    let fileExtension = fileName.split('.').pop(); // Obtém a extensão do arquivo
+                    let fileSize = 'Desconhecido'; // Placeholder para tamanho, depende do retorno do backend
+
+                    let row = `
+                        <tr>
+                            <td>${fileName}</td>
+                            <td>${fileExtension}</td>
+                            <td>${fileSize}</td>
+                        </tr>`;
                     uploadedFilesTable.innerHTML += row;
                 });
             }
@@ -136,7 +145,6 @@ function loadUploadedFiles() {
             alert('Erro ao carregar arquivos existentes.');
         });
 }
-
 
 document.getElementById('processButton').addEventListener('click', function() {
     fetch('/.netlify/functions/process-pdfs', { method: 'POST' })

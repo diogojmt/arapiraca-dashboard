@@ -1,6 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #2c2f33;
+    color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,7 +10,7 @@ body {
 }
 
 .login-container, .upload-container {
-    background-color: white;
+    background-color: #23272a;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -23,12 +24,14 @@ input[type="file"], input[type="text"], input[type="password"] {
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background-color: #2c2f33;
+    color: #fff;
 }
 
 button {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #7289da;
     color: white;
     border: none;
     border-radius: 5px;
@@ -36,7 +39,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #5b6eae;
 }
 
 #feedbackContainer {
@@ -57,10 +60,12 @@ button:hover {
     border: 1px solid #ccc;
     padding: 10px;
     text-align: left;
+    background-color: #23272a;
+    color: #fff;
 }
 
 #fileTable th, #uploadedFilesTable th {
-    background-color: #f8f8f8;
+    background-color: #2c2f33;
 }
 
 .progress-bar {
@@ -72,8 +77,15 @@ button:hover {
 }
 
 .progress-container {
-    background-color: #e0e0e0;
+    background-color: #99aab5;
     border-radius: 5px;
     overflow: hidden;
     margin-bottom: 5px;
+}
+
+.scroll-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
 }
