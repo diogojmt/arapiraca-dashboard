@@ -154,6 +154,9 @@ document.getElementById('processButton').addEventListener('click', function() {
             try {
                 const jsonData = JSON.parse(data);  // Tenta fazer o parse
                 alert(jsonData.message);
+                if (jsonData.message.includes('concluído')) {
+                    document.getElementById('downloadCsvButton').style.display = 'block';
+                }
             } catch (error) {
                 console.error('Erro ao fazer o parse do JSON:', error);
                 alert('Erro ao processar os PDFs.');
@@ -163,4 +166,9 @@ document.getElementById('processButton').addEventListener('click', function() {
             console.error('Erro no processamento:', error);
             alert('Erro ao processar os PDFs.');
         });
+});
+
+// Função para o botão "Baixar dados.csv"
+document.getElementById('downloadCsvButton').addEventListener('click', function() {
+    window.location.href = '/path/to/dados.csv'; // Substitua pelo caminho real onde o CSV é armazenado
 });
