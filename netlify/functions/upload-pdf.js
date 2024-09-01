@@ -114,36 +114,6 @@ async function processPdf(file) {
     return parsedData;
 }
 
-function extractData(text, mesAno) {
-    const lines = text.split('\n');
-    const data = [];
-
-    console.log("Iniciando o processamento das linhas...");
-
-    lines.forEach(line => {
-        console.log("Processando linha:", line);
-
-        // Nova expressão regular para capturar o código, descrição e total
-        const match = line.match(/^(\d+)([A-Z\s]+)([\d.,]+\d{2})$/);
-        if (match) {
-            const [_, codigo, descricao, total] = match;
-            console.log("Dados capturados - Código:", codigo, "Descrição:", descricao.trim(), "Total:", total);
-
-            data.push({
-                codigo: codigo.trim(),
-                descricao: descricao.trim(),
-                total: total.replace('.', '').replace(',', '.'),
-                mesAno
-            });
-        } else {
-            console.log("Linha não corresponde à expressão regular:", line);
-        }
-    });
-
-    console.log("Dados extraídos:", data);
-    return data;
-}
-
 async function writeCsv(data) {
     const csvFilePath = path.join('/tmp', 'dados.csv');
     const writer = csvWriter({
