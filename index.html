@@ -40,8 +40,18 @@
                 <div id="summary" style="margin-top: 20px;"></div>
             </div>
 
-            <!-- Elemento para exibir os arquivos carregados -->
-            <div id="uploadedFiles"></div>
+            <!-- Tabela para exibir os arquivos carregados -->
+            <div id="uploadedFilesContainer" style="margin-top: 40px;">
+                <h3>Arquivos Carregados</h3>
+                <table id="uploadedFilesTable">
+                    <thead>
+                        <tr>
+                            <th>Nome do Arquivo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="uploadedFiles"></tbody>
+                </table>
+            </div>
 
             <!-- Botão para processar os PDFs e gerar o CSV -->
             <button id="processButton" style="display: none;">Processar PDFs</button>

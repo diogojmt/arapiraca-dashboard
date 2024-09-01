@@ -47,19 +47,19 @@ button:hover {
     padding-top: 20px;
 }
 
-#fileTable {
+#fileTable, #uploadedFilesTable {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
 
-#fileTable th, #fileTable td {
+#fileTable th, #fileTable td, #uploadedFilesTable th, #uploadedFilesTable td {
     border: 1px solid #ccc;
     padding: 10px;
     text-align: left;
 }
 
-#fileTable th {
+#fileTable th, #uploadedFilesTable th {
     background-color: #f8f8f8;
 }
 
