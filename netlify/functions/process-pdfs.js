@@ -92,8 +92,8 @@ function extractData(text, mesAno) {
     const data = [];
 
     lines.forEach(line => {
-        // Expressão regular mais flexível
-        const match = line.match(/^(\d+)\s+([^\d]+?)\s+([\d,.]+)$/);
+        // Nova expressão regular ajustada
+        const match = line.match(/^(\d+)([^\d]+)([\d,.]+)$/);
         if (match) {
             let [_, codigo, descricao, total] = match;
 
