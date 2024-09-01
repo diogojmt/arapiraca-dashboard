@@ -106,28 +106,40 @@ function extractData(text) {
     const data = [];
     let mesAno = '';
 
+    console.log("Texto completo do PDF:", text);
+
     lines.forEach(line => {
+        console.log("Processando linha:", line);
+
+        // Captura Mês/Ano
         if (line.includes('Data de Movimento')) {
             const dateMatch = line.match(/(\d{2}\/\d{2}\/\d{4})/g);
             if (dateMatch && dateMatch.length > 0) {
                 const [, endDate] = dateMatch;
                 const [endDay, endMonth, endYear] = endDate.split('/');
                 mesAno = `${endMonth}/${endYear}`;
+                console.log("Mês/Ano capturado:", mesAno);
             }
         }
 
-        const match = line.match(/^(\d+)\s+(.+?)\s+([\d,]+\.\d{2})$/);
+        // Captura código, descrição e total
+        const match = line.match(/^(\d+)\s+(.+?)\s+([\d.,]+\d{2})$/);
         if (match) {
             const [_, codigo, descricao, total] = match;
+            console.log("Dados capturados - Código:", codigo, "Descrição:", descricao, "Total:", total);
+
             data.push({
                 codigo,
                 descricao,
                 total: total.replace('.', '').replace(',', '.'),
                 mesAno
             });
+        } else {
+            console.log("Linha não corresponde à expressão regular:", line);
         }
     });
 
+    console.log("Dados extraídos:", data);
     return data;
 }
 
