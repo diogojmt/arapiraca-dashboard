@@ -1,0 +1,9 @@
+[build]
+  # Especifica o diretório onde estão localizadas as funções serverless
+  functions = "netlify/functions"
+
+[[redirects]]
+  # Redireciona as requisições para /api/fetch-dados para a função serverless
+  from = "/api/fetch-dados"
+  to = "/.netlify/functions/fetch-dados"
+  status = 200

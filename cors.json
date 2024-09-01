@@ -1,0 +1,8 @@
+[
+  {
+    "origin": ["https://arrecadacao-arapiraca.netlify.app"],
+    "method": ["GET", "POST"],
+    "maxAgeSeconds": 3600,
+    "responseHeader": ["Content-Type", "Access-Control-Allow-Origin"]
+  }
+]
