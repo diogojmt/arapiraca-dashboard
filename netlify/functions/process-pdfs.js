@@ -79,26 +79,25 @@ async function processPdf(file) {
     return parsedData;
 }
 
-function extractData(text) {
+function extractData(text, fileName) {
     const lines = text.split('\n');
     const data = [];
+    
+    // Extrair mês e ano do nome do arquivo (exemplo: 122022.pdf -> mesAno = "12/2022")
+    const fileMatch = fileName.match(/(\d{2})(\d{4})/);
     let mesAno = '';
+    if (fileMatch) {
+        const [_, month, year] = fileMatch;
+        mesAno = `${month}/${year}`;
+    }
 
     lines.forEach(line => {
-        if (line.includes('Data de Movimento')) {
-            const dateMatch = line.match(/(\d{2}\/\d{2}\/\d{4})/g);
-            if (dateMatch && dateMatch.length > 0) {
-                const [, endDate] = dateMatch;
-                const [endDay, endMonth, endYear] = endDate.split('/');
-                mesAno = `${endMonth}/${endYear}`;
-            }
-        }
-
-        // Ajuste para capturar os valores corretamente
+        // Expressão regular para capturar o código, descrição e total
         const match = line.match(/^(\d+)\s+(.+?)\s+([\d,.]+)$/);
         if (match) {
             let [_, codigo, descricao, total] = match;
-            // Remover pontos dos valores e substituir o ponto decimal por vírgula
+
+            // Remover pontos que separam milhares e substituir a vírgula decimal por ponto
             total = total.replace(/\./g, '').replace(',', '.');
             total = parseFloat(total).toFixed(2).replace('.', ',');
 
@@ -124,7 +123,7 @@ async function writeCsv(data) {
             { id: 'total', title: 'Total' },
             { id: 'mesAno', title: 'Mês/Ano' }
         ],
-        fieldDelimiter: '|'
+        fieldDelimiter: '|'  // Definindo o delimitador de campo como '|'
     });
 
     await writer.writeRecords(data);
@@ -134,3 +133,4 @@ async function writeCsv(data) {
         metadata: { contentType: 'text/csv' }
     });
 }
+
