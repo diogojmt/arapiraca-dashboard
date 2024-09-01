@@ -79,33 +79,38 @@ async function processPdf(file) {
     return parsedData;
 }
 
-function extractData(text, mesAno) {
+function extractData(text) {
     const lines = text.split('\n');
     const data = [];
-
-    console.log("Iniciando o processamento das linhas...");
+    let mesAno = '';
 
     lines.forEach(line => {
-        console.log("Processando linha:", line);
+        if (line.includes('Data de Movimento')) {
+            const dateMatch = line.match(/(\d{2}\/\d{2}\/\d{4})/g);
+            if (dateMatch && dateMatch.length > 0) {
+                const [, endDate] = dateMatch;
+                const [endDay, endMonth, endYear] = endDate.split('/');
+                mesAno = `${endMonth}/${endYear}`;
+            }
+        }
 
-        // Nova expressão regular para capturar o código, descrição e total
-        const match = line.match(/^(\d+)([A-Z\s]+)([\d.,]+\d{2})$/);
+        // Ajuste para capturar os valores corretamente
+        const match = line.match(/^(\d+)\s+(.+?)\s+([\d,.]+)$/);
         if (match) {
-            const [_, codigo, descricao, total] = match;
-            console.log("Dados capturados - Código:", codigo, "Descrição:", descricao.trim(), "Total:", total);
+            let [_, codigo, descricao, total] = match;
+            // Remover pontos dos valores e substituir o ponto decimal por vírgula
+            total = total.replace(/\./g, '').replace(',', '.');
+            total = parseFloat(total).toFixed(2).replace('.', ',');
 
             data.push({
-                codigo: codigo.trim(),
-                descricao: descricao.trim(),
-                total: total.replace('.', '').replace(',', '.'),
+                codigo,
+                descricao,
+                total,
                 mesAno
             });
-        } else {
-            console.log("Linha não corresponde à expressão regular:", line);
         }
     });
 
-    console.log("Dados extraídos:", data);
     return data;
 }
 
@@ -118,7 +123,8 @@ async function writeCsv(data) {
             { id: 'descricao', title: 'Descrição do código tributário' },
             { id: 'total', title: 'Total' },
             { id: 'mesAno', title: 'Mês/Ano' }
-        ]
+        ],
+        fieldDelimiter: '|'
     });
 
     await writer.writeRecords(data);

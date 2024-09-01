@@ -113,23 +113,3 @@ async function processPdf(file) {
     const parsedData = extractData(data.text, mesAno);
     return parsedData;
 }
-
-async function writeCsv(data) {
-    const csvFilePath = path.join('/tmp', 'dados.csv');
-    const writer = csvWriter({
-        path: csvFilePath,
-        header: [
-            { id: 'codigo', title: 'Código' },
-            { id: 'descricao', title: 'Descrição do código tributário' },
-            { id: 'total', title: 'Total' },
-            { id: 'mesAno', title: 'Mês/Ano' }
-        ]
-    });
-
-    await writer.writeRecords(data);
-
-    const csvFile = bucket.file('dados.csv');
-    await csvFile.save(fs.readFileSync(csvFilePath), {
-        metadata: { contentType: 'text/csv' }
-    });
-}
