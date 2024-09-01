@@ -170,5 +170,31 @@ document.getElementById('processButton').addEventListener('click', function() {
 
 // Função para o botão "Baixar dados.csv"
 document.getElementById('downloadCsvButton').addEventListener('click', function() {
-    window.location.href = '/path/to/dados.csv'; // Substitua pelo caminho real onde o CSV é armazenado
+    // URL direta para o arquivo no Firebase Storage
+    const storageUrl = 'https://firebasestorage.googleapis.com/v0/b/arrecadacao-arapiraca.appspot.com/o/dados.csv?alt=media';
+
+    fetch(storageUrl, {
+        method: 'GET'
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.blob(); // Retorna o conteúdo do arquivo
+        } else {
+            throw new Error('Erro ao baixar o arquivo');
+        }
+    })
+    .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'dados.csv';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    })
+    .catch(error => {
+        console.error('Erro ao baixar o arquivo:', error);
+        alert('Erro ao baixar o arquivo CSV.');
+    });
 });
+
