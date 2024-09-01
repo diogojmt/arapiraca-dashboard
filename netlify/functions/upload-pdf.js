@@ -123,15 +123,15 @@ function extractData(text, mesAno) {
     lines.forEach(line => {
         console.log("Processando linha:", line);
 
-        // Captura código, descrição e total
-        const match = line.match(/^(\d+)\s+(.+?)\s+([\d.,]+\d{2})$/);
+        // Nova expressão regular para capturar o código, descrição e total
+        const match = line.match(/^(\d+)([A-Z\s]+)([\d.,]+\d{2})$/);
         if (match) {
             const [_, codigo, descricao, total] = match;
-            console.log("Dados capturados - Código:", codigo, "Descrição:", descricao, "Total:", total);
+            console.log("Dados capturados - Código:", codigo, "Descrição:", descricao.trim(), "Total:", total);
 
             data.push({
-                codigo,
-                descricao,
+                codigo: codigo.trim(),
+                descricao: descricao.trim(),
                 total: total.replace('.', '').replace(',', '.'),
                 mesAno
             });
