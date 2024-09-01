@@ -19,6 +19,13 @@ exports.handler = async function(event, context) {
         try {
             const [files] = await bucket.getFiles({ prefix: 'uploads/' });
 
+            if (files.length === 0) {
+                return {
+                    statusCode: 400,
+                    body: JSON.stringify({ message: 'Nenhum arquivo encontrado para processamento.' })
+                };
+            }
+
             const allData = [];
             for (const file of files) {
                 const data = await processPdf(file);
@@ -76,20 +83,13 @@ async function processPdf(file) {
     }
 
     const parsedData = extractData(data.text, mesAno);
+    console.log('Dados extraídos:', parsedData);
     return parsedData;
 }
 
-function extractData(text, fileName) {
+function extractData(text, mesAno) {
     const lines = text.split('\n');
     const data = [];
-    
-    // Extrair mês e ano do nome do arquivo (exemplo: 122022.pdf -> mesAno = "12/2022")
-    const fileMatch = fileName.match(/(\d{2})(\d{4})/);
-    let mesAno = '';
-    if (fileMatch) {
-        const [_, month, year] = fileMatch;
-        mesAno = `${month}/${year}`;
-    }
 
     lines.forEach(line => {
         // Expressão regular para capturar o código, descrição e total
@@ -138,4 +138,3 @@ async function writeCsv(data) {
         metadata: { contentType: 'text/csv' }
     });
 }
-
