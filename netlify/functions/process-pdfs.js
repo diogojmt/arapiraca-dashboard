@@ -93,9 +93,12 @@ function extractData(text, fileName) {
 
     lines.forEach(line => {
         // Expressão regular para capturar o código, descrição e total
-        const match = line.match(/^(\d+)\s+(.+?)\s+([\d,.]+)$/);
+        const match = line.match(/^(\d+)\s+(.+?)\s+([\d.,]+)$/);
         if (match) {
             let [_, codigo, descricao, total] = match;
+
+            // Remover espaços extras na descrição
+            descricao = descricao.trim();
 
             // Remover pontos que separam milhares e substituir a vírgula decimal por ponto
             total = total.replace(/\./g, '').replace(',', '.');
@@ -107,10 +110,12 @@ function extractData(text, fileName) {
                 total,
                 mesAno
             });
+        } else {
+            console.log(`Linha não corresponde à expressão regular: ${line}`);
         }
     });
 
-    return data;
+    return data.length > 0 ? data : null;
 }
 
 async function writeCsv(data) {
