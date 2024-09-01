@@ -170,10 +170,10 @@ document.getElementById('processButton').addEventListener('click', function() {
 
 // Função para o botão "Baixar dados.csv"
 document.getElementById('downloadCsvButton').addEventListener('click', function() {
-    // URL direta para o arquivo no Firebase Storage
-    const storageUrl = 'https://firebasestorage.googleapis.com/v0/b/arrecadacao-arapiraca.appspot.com/o/dados.csv?alt=media';
+    // URL para o endpoint de proxy configurado no Netlify
+    const proxyUrl = '/api/fetch-dados';
 
-    fetch(storageUrl, {
+    fetch(proxyUrl, {
         method: 'GET'
     })
     .then(response => {
@@ -197,4 +197,7 @@ document.getElementById('downloadCsvButton').addEventListener('click', function(
         alert('Erro ao baixar o arquivo CSV.');
     });
 });
+
+
+
 
