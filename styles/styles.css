@@ -18,7 +18,7 @@ body {
     text-align: center;
 }
 
-input[type="file"], input[type="text"], input[type="password"] {
+input[type="file"], input[type="text"], input[type="password"], button {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -28,14 +28,17 @@ input[type="file"], input[type="text"], input[type="password"] {
     color: #fff;
 }
 
+input[type="file"], input[type="text"], input[type="password"] {
+    box-sizing: border-box; /* Garantir que a borda seja incluída no cálculo de largura */
+}
+
 button {
-    width: 100%;
-    padding: 10px;
     background-color: #7289da;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    box-sizing: border-box; /* Garantir que a borda seja incluída no cálculo de largura */
 }
 
 button:hover {
@@ -88,4 +91,19 @@ button:hover {
     overflow-y: auto;
     border-top: 1px solid #ccc;
     padding-top: 10px;
+}
+
+/* Garantir que o botão de processar fique sempre visível */
+#fileButtonContainer {
+    position: relative;
+    padding-bottom: 60px; /* Espaço para o botão */
+}
+
+#processButton {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    margin-top: 10px;
 }
