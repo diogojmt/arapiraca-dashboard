@@ -126,9 +126,9 @@ function loadUploadedFiles() {
             if (uploadedFilesTable) {
                 uploadedFilesTable.innerHTML = ''; // Limpa a tabela antes de adicionar os arquivos
                 data.files.forEach(file => {
-                    let fileName = file.split('/').pop(); // Obtém apenas o nome do arquivo
+                    let fileName = file.name.split('/').pop(); // Obtém apenas o nome do arquivo
                     let fileExtension = fileName.split('.').pop(); // Obtém a extensão do arquivo
-                    let fileSize = 'Desconhecido'; // Placeholder para tamanho, depende do retorno do backend
+                    let fileSize = (file.size / 1024).toFixed(2) + ' KB'; // Converte o tamanho para KB
 
                     let row = `
                         <tr>

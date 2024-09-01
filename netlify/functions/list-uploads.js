@@ -14,11 +14,17 @@ exports.handler = async function(event, context) {
     if (event.httpMethod === 'GET') {
         try {
             const [files] = await bucket.getFiles({ prefix: 'uploads/' });
-            const fileNames = files.map(file => file.name);
+            const fileDetails = await Promise.all(files.map(async (file) => {
+                const [metadata] = await file.getMetadata();
+                return {
+                    name: file.name,
+                    size: metadata.size // Tamanho do arquivo em bytes
+                };
+            }));
 
             return {
                 statusCode: 200,
-                body: JSON.stringify({ files: fileNames })
+                body: JSON.stringify({ files: fileDetails })
             };
         } catch (error) {
             console.error('Erro ao listar arquivos:', error);
