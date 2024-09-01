@@ -72,6 +72,7 @@ function extractData(text) {
     let mesAno = '';
 
     lines.forEach(line => {
+        // Tenta capturar o Mês/Ano a partir da linha com "Data de Movimento"
         if (line.includes('Data de Movimento')) {
             const dateMatch = line.match(/(\d{2}\/\d{2}\/\d{4})/g);
             if (dateMatch && dateMatch.length > 0) {
@@ -81,7 +82,8 @@ function extractData(text) {
             }
         }
 
-        const match = line.match(/^(\d+)\s+(.+?)\s+([\d,]+\.\d{2})$/);
+        // Expressão regular para capturar o código, descrição e total
+        const match = line.match(/^(\d+)\s+(.+?)\s+([\d.,]+\d{2})$/);
         if (match) {
             const [_, codigo, descricao, total] = match;
             data.push({
