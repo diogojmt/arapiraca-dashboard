@@ -106,23 +106,20 @@ function extractData(text) {
     const data = [];
     let mesAno = '';
 
-    console.log("Texto completo do PDF:", text);
-
     lines.forEach(line => {
         console.log("Processando linha:", line);
 
-        // Captura Mês/Ano
-        if (line.includes('Data de Movimento')) {
-            const dateMatch = line.match(/(\d{2}\/\d{2}\/\d{4})/g);
-            if (dateMatch && dateMatch.length > 0) {
-                const [, endDate] = dateMatch;
-                const [endDay, endMonth, endYear] = endDate.split('/');
-                mesAno = `${endMonth}/${endYear}`;
+        // Captura a Data de Movimento no formato "01/01/2019 a 31/01/2019"
+        if (line.includes('Data de Movimento:')) {
+            const dateMatch = line.match(/(\d{2})\/(\d{2})\/(\d{4}) a \d{2}\/\d{2}\/\d{4}/);
+            if (dateMatch) {
+                const [, day, month, year] = dateMatch;
+                mesAno = `${month}/${year}`;
                 console.log("Mês/Ano capturado:", mesAno);
             }
         }
 
-        // Captura código, descrição e total
+        // Expressão regular para capturar o código, descrição e total
         const match = line.match(/^(\d+)\s+(.+?)\s+([\d.,]+\d{2})$/);
         if (match) {
             const [_, codigo, descricao, total] = match;
