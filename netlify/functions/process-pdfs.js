@@ -128,7 +128,7 @@ async function writeCsv(data) {
             { id: 'total', title: 'Total' },
             { id: 'mesAno', title: 'Mês/Ano' }
         ],
-        fieldDelimiter: '|'  // Definindo o delimitador de campo como '|'
+        fieldDelimiter: ';'  // Definindo o delimitador de campo como ';'
     });
 
     await writer.writeRecords(data);
@@ -138,3 +138,4 @@ async function writeCsv(data) {
         metadata: { contentType: 'text/csv' }
     });
 }
+
