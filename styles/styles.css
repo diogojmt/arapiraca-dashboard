@@ -104,3 +104,31 @@ button:hover {
     width: 100%;
     margin-top: 10px;
 }
+
+/* Estilos adicionais para os indicadores e gráficos */
+#indicatorsContainer {
+    background-color: #23272a;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+#indicatorsContainer h3 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #7289da;
+}
+
+#indicatorsContainer div {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+canvas {
+    background-color: #2c2f33;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

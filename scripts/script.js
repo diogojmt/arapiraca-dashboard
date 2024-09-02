@@ -156,6 +156,7 @@ document.getElementById('processButton').addEventListener('click', function() {
                 alert(jsonData.message);
                 if (jsonData.message.includes('concluído')) {
                     document.getElementById('downloadCsvButton').style.display = 'block';
+                    loadIndicatorsAndChart(); // Carregar e exibir indicadores e gráficos
                 }
             } catch (error) {
                 console.error('Erro ao fazer o parse do JSON:', error);
@@ -179,12 +180,99 @@ document.getElementById('downloadCsvButton').addEventListener('click', function(
         const csvData = parseCSV(csvText);
         displayCSVData(csvData);
         document.getElementById('csvDataContainer').style.display = 'block';
+        loadIndicatorsAndChart(csvData); // Carregar e exibir indicadores e gráficos
     })
     .catch(error => {
         console.error('Erro ao baixar o arquivo:', error);
         alert('Erro ao baixar o arquivo CSV.');
     });
 });
+
+// Função para carregar indicadores e exibir gráfico
+function loadIndicatorsAndChart(csvData) {
+    if (!csvData) {
+        fetch('/api/fetch-dados')
+            .then(response => response.text())
+            .then(csvText => {
+                csvData = parseCSV(csvText);
+                showIndicators(csvData);
+                displayChart(csvData);
+                document.getElementById('indicatorsContainer').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Erro ao carregar o arquivo:', error);
+                alert('Erro ao carregar o arquivo CSV.');
+            });
+    } else {
+        showIndicators(csvData);
+        displayChart(csvData);
+        document.getElementById('indicatorsContainer').style.display = 'block';
+    }
+}
+
+function showIndicators(data) {
+    const totalGeral = calculateTotalGeral(data);
+    const quantidadeRegistros = data.length;
+    const mesAnoRecente = calculateMesAnoRecente(data);
+    const mediaPorMes = calculateMediaPorMes(data);
+    const codigoMaisComum = calculateCodigoMaisComum(data);
+
+    document.getElementById('totalGeral').textContent = `Total Geral: R$ ${totalGeral}`;
+    document.getElementById('quantidadeRegistros').textContent = `Quantidade de Registros: ${quantidadeRegistros}`;
+    // Outros indicadores podem ser adicionados aqui
+}
+
+function calculateTotalGeral(data) {
+    return data.reduce((sum, row) => sum + parseFloat(row['Total'].replace(',', '.')), 0).toFixed(2).replace('.', ',');
+}
+
+function calculateMesAnoRecente(data) {
+    const meses = data.map(row => row['Mês/Ano']);
+    return meses.sort().reverse()[0];
+}
+
+function calculateMediaPorMes(data) {
+    const meses = data.reduce((acc, row) => {
+        acc[row['Mês/Ano']] = (acc[row['Mês/Ano']] || 0) + parseFloat(row['Total'].replace(',', '.'));
+        return acc;
+    }, {});
+    const totalMeses = Object.keys(meses).length;
+    const totalGeral = Object.values(meses).reduce((sum, value) => sum + value, 0);
+    return (totalGeral / totalMeses).toFixed(2).replace('.', ',');
+}
+
+function calculateCodigoMaisComum(data) {
+    const codigos = data.map(row => row['Código']);
+    const freqMap = codigos.reduce((acc, codigo) => {
+        acc[codigo] = (acc[codigo] || 0) + 1;
+        return acc;
+    }, {});
+    return Object.keys(freqMap).reduce((a, b) => (freqMap[a] > freqMap[b] ? a : b));
+}
+
+function displayChart(data) {
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: data.map(item => item['Mês/Ano']), // Supondo que você tenha um campo 'Mês/Ano'
+            datasets: [{
+                label: 'Arrecadação',
+                data: data.map(item => parseFloat(item['Total'].replace(',', '.'))),
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
 
 function parseCSV(csvText) {
     const lines = csvText.trim().split('\n');
@@ -233,45 +321,10 @@ document.getElementById('showCsvButton').addEventListener('click', function() {
         const csvData = parseCSV(csvText);
         displayCSVData(csvData);
         document.getElementById('csvDataContainer').style.display = 'block';
+        loadIndicatorsAndChart(csvData); // Carregar e exibir indicadores e gráficos
     })
     .catch(error => {
         console.error('Erro ao carregar o arquivo:', error);
         alert('Erro ao carregar o arquivo CSV.');
     });
 });
-
-function parseCSV(csvText) {
-    const lines = csvText.trim().split('\n');
-    const headers = lines[0].split(';');
-    const data = lines.slice(1).map(line => {
-        const values = line.split(';');
-        const entry = {};
-        headers.forEach((header, index) => {
-            entry[header.trim()] = values[index].trim();
-        });
-        return entry;
-    });
-    return data;
-}
-
-function displayCSVData(csvData) {
-    const csvDataBody = document.getElementById('csvDataBody');
-    csvDataBody.innerHTML = '';
-
-    csvData.forEach(row => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${row['Código']}</td>
-            <td>${row['Descrição do código tributário']}</td>
-            <td>${row['Total']}</td>
-            <td>${row['Mês/Ano']}</td>
-        `;
-        csvDataBody.appendChild(tr);
-    });
-}
-
-
-
-
-
-

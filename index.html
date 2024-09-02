@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login e Upload</title>
+    <title>Dashboard de Arrecadação</title>
     <link rel="stylesheet" href="styles/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Inclusão do Chart.js -->
 </head>
 <body>
     <!-- Seção de Login -->
@@ -77,21 +78,14 @@
 			<!-- Botão para exibir os dados do CSV -->
 			<button id="showCsvButton">Exibir dados.csv</button>
 
-			<!-- Tabela para exibir os dados do CSV -->
-			<div id="csvDataContainer" style="display: none; margin-top: 20px;">
-				<h3>Dados do Arquivo CSV</h3>
-				<table id="csvDataTable" border="1" cellpadding="5" cellspacing="0">
-					<thead>
-						<tr>
-							<th>Código</th>
-							<th>Descrição</th>
-							<th>Total</th>
-							<th>Mês/Ano</th>
-						</tr>
-					</thead>
-					<tbody id="csvDataBody"></tbody>
-				</table>
-			</div>			
+            <!-- Seção de Indicadores e Gráficos -->
+            <div id="indicatorsContainer" style="display: none; margin-top: 40px;">
+                <h3>Indicadores de Arrecadação</h3>
+                <div id="totalGeral">Total Geral: Carregando...</div>
+                <div id="quantidadeRegistros">Quantidade de Registros: Carregando...</div>
+                <!-- Outros indicadores -->
+                <canvas id="myChart" style="max-width: 100%; margin-top: 20px;"></canvas> <!-- Gráfico -->
+            </div>
         </div>
     </div>
 
