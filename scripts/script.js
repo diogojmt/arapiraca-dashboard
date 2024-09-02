@@ -170,33 +170,52 @@ document.getElementById('processButton').addEventListener('click', function() {
 
 // Função para o botão "Baixar dados.csv"
 document.getElementById('downloadCsvButton').addEventListener('click', function() {
-    // URL para o endpoint de proxy configurado no Netlify
-    const proxyUrl = '/api/fetch-dados';
+    // URL direta para o arquivo no Firebase Storage
+    const storageUrl = 'https://firebasestorage.googleapis.com/v0/b/arrecadacao-arapiraca.appspot.com/o/dados.csv?alt=media';
 
-    fetch(proxyUrl, {
-        method: 'GET'
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.blob(); // Retorna o conteúdo do arquivo
-        } else {
-            throw new Error('Erro ao baixar o arquivo');
-        }
-    })
-    .then(blob => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'dados.csv';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
+    fetch(storageUrl)
+    .then(response => response.text())
+    .then(csvText => {
+        const csvData = parseCSV(csvText);
+        displayCSVData(csvData);
+        document.getElementById('csvDataContainer').style.display = 'block';
     })
     .catch(error => {
         console.error('Erro ao baixar o arquivo:', error);
         alert('Erro ao baixar o arquivo CSV.');
     });
 });
+
+function parseCSV(csvText) {
+    const lines = csvText.trim().split('\n');
+    const headers = lines[0].split(';');
+    const data = lines.slice(1).map(line => {
+        const values = line.split(';');
+        const entry = {};
+        headers.forEach((header, index) => {
+            entry[header.trim()] = values[index].trim();
+        });
+        return entry;
+    });
+    return data;
+}
+
+function displayCSVData(csvData) {
+    const csvDataBody = document.getElementById('csvDataBody');
+    csvDataBody.innerHTML = '';
+
+    csvData.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${row['Código']}</td>
+            <td>${row['Descrição do código tributário']}</td>
+            <td>${row['Total']}</td>
+            <td>${row['Mês/Ano']}</td>
+        `;
+        csvDataBody.appendChild(tr);
+    });
+}
+
 
 
 
