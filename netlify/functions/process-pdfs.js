@@ -14,6 +14,9 @@ admin.initializeApp({
 
 const bucket = admin.storage().bucket();
 
+// Suponha que a planilha de exemplo foi convertida para JSON e está disponível como um arquivo separado
+const planilhaExemplo = require('./planilhaExemplo.json');  // A planilha convertida para JSON
+
 exports.handler = async function(event, context) {
     if (event.httpMethod === 'POST') {
         try {
@@ -40,6 +43,18 @@ exports.handler = async function(event, context) {
                     body: JSON.stringify({ message: 'Nenhum dado válido encontrado nos PDFs.' })
                 };
             }
+
+            // Adiciona as colunas "Receitas" e "Origem"
+            allData.forEach(row => {
+                const correspondencia = planilhaExemplo.find(p => p.DESCRICAO === row.descricao);
+                if (correspondencia) {
+                    row.RECEITAS = correspondencia.RECEITAS;
+                    row.ORIGEM = correspondencia.ORIGEM;
+                } else {
+                    row.RECEITAS = 'N/A'; // Ou outro valor padrão
+                    row.ORIGEM = 'N/A';   // Ou outro valor padrão
+                }
+            });
 
             await writeCsv(allData);
 
@@ -126,7 +141,9 @@ async function writeCsv(data) {
             { id: 'codigo', title: 'Código' },
             { id: 'descricao', title: 'Descrição do código tributário' },
             { id: 'total', title: 'Total' },
-            { id: 'mesAno', title: 'Mês/Ano' }
+            { id: 'mesAno', title: 'Mês/Ano' },
+            { id: 'RECEITAS', title: 'Receitas' },
+            { id: 'ORIGEM', title: 'Origem' }
         ],
         fieldDelimiter: ';'  // Definindo o delimitador de campo como ';'
     });
@@ -138,4 +155,3 @@ async function writeCsv(data) {
         metadata: { contentType: 'text/csv' }
     });
 }
-
