@@ -217,9 +217,22 @@ function showIndicators(data) {
     const mediaPorMes = calculateMediaPorMes(data);
     const codigoMaisComum = calculateCodigoMaisComum(data);
 
-    document.getElementById('totalGeral').textContent = `Total Geral: R$ ${totalGeral}`;
-    document.getElementById('quantidadeRegistros').textContent = `Quantidade de Registros: ${quantidadeRegistros}`;
-    // Outros indicadores podem ser adicionados aqui
+    const totalGeralElement = document.getElementById('totalGeral');
+    const quantidadeRegistrosElement = document.getElementById('quantidadeRegistros');
+
+    if (totalGeralElement) {
+        totalGeralElement.textContent = `Total Geral: R$ ${totalGeral}`;
+    } else {
+        console.error('Elemento com ID "totalGeral" não encontrado.');
+    }
+
+    if (quantidadeRegistrosElement) {
+        quantidadeRegistrosElement.textContent = `Quantidade de Registros: ${quantidadeRegistros}`;
+    } else {
+        console.error('Elemento com ID "quantidadeRegistros" não encontrado.');
+    }
+
+    // Verificações para outros indicadores podem ser adicionadas da mesma forma
 }
 
 function calculateTotalGeral(data) {
