@@ -8,6 +8,22 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Inclusão do Chart.js -->
 </head>
 <body>
+    <!-- Cabeçalho -->
+    <header class="header">
+        <div class="logo">
+            <img src="path-to-logo.png" alt="Logo Arapiraca"> <!-- Substituir por caminho real -->
+        </div>
+        <div class="title">
+            <h1>SECRETARIA MUNICIPAL DA FAZENDA</h1>
+            <h2>Análise das Receitas Líquidas Municipais</h2>
+        </div>
+        <div class="filters">
+            <button>PRÓPRIA</button>
+            <button>REPASSE - UF</button>
+            <button>REPASSE - UNIÃO</button>
+        </div>
+    </header>
+
     <!-- Seção de Login -->
     <div class="login-container">
         <h2>Login</h2>
@@ -26,37 +42,62 @@
             <button type="submit" id="uploadButton">Enviar Arquivos</button>
         </form>
 
-        <!-- Container para agrupar arquivos e botões -->
+        <!-- Dashboard Principal -->
+        <main class="dashboard-grid">
+            <!-- Tabela de Receitas Totais -->
+            <section class="tabela-receitas">
+                <h3>TABELA DE RECEITAS TOTAIS</h3>
+                <div id="feedbackContainer">
+                    <table id="fileTable">
+                        <thead>
+                            <tr>
+                                <th>Nome do Arquivo</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fileList"></tbody>
+                    </table>
+                    <div id="summary" style="margin-top: 20px;"></div>
+                </div>
+            </section>
+
+            <!-- Análise de Receita Própria -->
+            <section class="analise-receita">
+                <h3>Análise da Receita Própria</h3>
+                <div id="uploadedFilesContainer" class="scroll-container">
+                    <h3>Arquivos Carregados</h3>
+                    <table id="uploadedFilesTable">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Extensão</th>
+                                <th>Tamanho</th>
+                            </tr>
+                        </thead>
+                        <tbody id="uploadedFiles"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Acompanhamento da Meta -->
+            <section class="acompanhamento-meta">
+                <h3>Acompanhamento da Meta para 2024</h3>
+                <canvas id="metaChart"></canvas> <!-- Gráfico de Meta -->
+            </section>
+
+            <!-- KPI e Gráficos -->
+            <section class="kpi">
+                <h3>KPI - Receita Própria vs Repasses - UF</h3>
+                <div class="kpi-value">
+                    <h4>R$ 10.134.710,74</h4>
+                    <p>Repasse UF: R$ 7.373.009,90 (+37.46%)</p>
+                </div>
+                <canvas id="kpiChart"></canvas> <!-- Gráfico de KPI -->
+            </section>
+        </main>
+
+        <!-- Botões para processar os PDFs e baixar o dados.csv -->
         <div id="fileButtonContainer">
-            <div id="feedbackContainer">
-                <table id="fileTable">
-                    <thead>
-                        <tr>
-                            <th>Nome do Arquivo</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="fileList"></tbody>
-                </table>
-                <div id="summary" style="margin-top: 20px;"></div>
-            </div>
-
-            <!-- Tabela para exibir os arquivos carregados -->
-            <div id="uploadedFilesContainer" class="scroll-container">
-                <h3>Arquivos Carregados</h3>
-                <table id="uploadedFilesTable">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Extensão</th>
-                            <th>Tamanho</th>
-                        </tr>
-                    </thead>
-                    <tbody id="uploadedFiles"></tbody>
-                </table>
-            </div>
-
-            <!-- Botões para processar os PDFs e baixar o dados.csv -->
             <button id="processButton">Processar PDFs</button>
             <button id="downloadCsvButton" style="display: none;">Baixar dados.csv</button>
 			
@@ -77,17 +118,13 @@
 			</div>
 			<!-- Botão para exibir os dados do CSV -->
 			<button id="showCsvButton">Exibir dados.csv</button>
-
-            <!-- Seção de Indicadores e Gráficos -->
-            <div id="indicatorsContainer" style="display: none; margin-top: 40px;">
-                <h3>Indicadores de Arrecadação</h3>
-                <div id="totalGeral">Total Geral: Carregando...</div>
-                <div id="quantidadeRegistros">Quantidade de Registros: Carregando...</div>
-                <!-- Outros indicadores -->
-                <canvas id="myChart" style="max-width: 100%; margin-top: 20px;"></canvas> <!-- Gráfico -->
-            </div>
         </div>
     </div>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <p>Fontes: Receita própria - e-Ágata | Repasse UF - API Portal da Transparência | Repasse UNIÃO - Banco do Brasil.</p>
+    </footer>
 
     <script src="scripts/script.js"></script>
 </body>
