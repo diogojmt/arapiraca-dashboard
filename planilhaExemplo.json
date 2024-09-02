@@ -1,0 +1,410 @@
+{
+    "USO E OCUPACAO DO SOLO": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "HABITE-SE": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ALVARÁ DE AMPLIAÇÃO": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ALVARÁ DE DEMOLIÇÃO": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ALVARÁ DE DESMEMBRAMENTO": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ALVARÁ DE REMEMBRAMENTO": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "AUTORIZACAO AMBIENTAL": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "CERTIDÃO DE MEDIDAS": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "CONSULTA PREVIA": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "DECLARAÇÃO DE RUA": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "DESARQUIVAMENTO  SMDUMA": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "AUTORIZAÇÃO PARA CASAL": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "RECEITA DA DIVIDA ATIVA TX SERV URBANOS": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "SERVIÇOS URBANOS - DÍVIDA ATIVA": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "TAXA DE REVISITA": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "LICENCA DE OPERACAO": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "LICENCA PREVIA": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "LICENCA DE IMPLANTACAO": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "MULTAS POR AUTO DE INFRACAO OBRAS": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ALVARÁ DE LOTEAMENTO": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ALVARÁ DE REFORMA": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "TAXA DE ANALISE DOCUMENTAL": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "TAXA DE PUBLICIDADE COMERCIAL": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "MULTAS POR AUTO DE INFRAÇÃO PARCELAM.": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "MULTAS POR DANOS AO MEIO AMBIENTE": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "MULTAS POR INFRAÇÃO POSTURA": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "DECLARAÇÃO DE PERÍMETRO URBANO": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "MULTAS POR AUTO DE INFRACAO PUBLICIDADE": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "CHAPA NUMERATIVA": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "DECLARAÇÃO DE BAIRRO": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "TAXA DE LICENCA PARA EXECUCAO DE OBRA": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "VERIFICAÇÃO DE ÁREA": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "CERTIDAO AMBIENTAL": {
+        "RECEITAS": "RECEITAS DA SEDUMA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ISS SUBS. TRIBUTÁRIA": {
+        "RECEITAS": "ISS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ISSQN": {
+        "RECEITAS": "ISS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ISSQN  JUROS": {
+        "RECEITAS": "ISS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ISSQN AUTONOMO": {
+        "RECEITAS": "ISS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ISSQN CONVENIO STN": {
+        "RECEITAS": "ISS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ISSQN DÍVIDA ATIVA": {
+        "RECEITAS": "ISS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ISSQN DÍVIDA ATIVA JUROS": {
+        "RECEITAS": "ISS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ISSQN DÍVIDA ATIVA MULTA": {
+        "RECEITAS": "ISS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ISSQN MULTA": {
+        "RECEITAS": "ISS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ISSQN UNIPROFISSIONAL": {
+        "RECEITAS": "ISS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "REC PARC DA DIVIDA ATIVA DE ISSQN": {
+        "RECEITAS": "ISS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "IMPOSTO S/ A PROPRIEDADE PREDIAL URBANA": {
+        "RECEITAS": "IPTU",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "IMPOSTO S/ A PROPRIEDADE TERRITORIAL URB": {
+        "RECEITAS": "IPTU",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "RECEITA DA DIVIDA ATIVA DO IPTU": {
+        "RECEITAS": "IPTU",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "REC PARC DA DIVIDA ATIVA DO IPTU": {
+        "RECEITAS": "IPTU",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "JUROS DÍVIDA ATIVA IPTU": {
+        "RECEITAS": "IPTU",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "JUROS IPTU": {
+        "RECEITAS": "IPTU",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "MULTA DÍVIDA ATIVA IPTU": {
+        "RECEITAS": "IPTU",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "MULTAS DE MORA DO IPTU": {
+        "RECEITAS": "IPTU",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "IPTU POR TRANSAÇÃO/MEDIAÇÃO": {
+        "RECEITAS": "IPTU",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "DIVIDA ATIVA TAXAS": {
+        "RECEITAS": "TFLF",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "TLF DÍVIDA ATIVA": {
+        "RECEITAS": "TFLF",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "TLF JUROS": {
+        "RECEITAS": "TFLF",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "TLF MULTA": {
+        "RECEITAS": "TFLF",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "TAXA DE LOCALIZAÇÃO E FUNCIONAMENTO": {
+        "RECEITAS": "TFLF",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "JUROS  DE OUTROS TRIBUTO": {
+        "RECEITAS": "TFLF",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "MULTA DE MORA DE OUTROS TRIBUTOS": {
+        "RECEITAS": "TFLF",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "MULTA E JURO DE MORA DIV ATIVA DAS TAXAS": {
+        "RECEITAS": "TFLF",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "INCLUSAO DE AREA CONSTRUIDA - ART. 188-A": {
+        "RECEITAS": "OUTRAS TAXAS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ATUALIZAÇÃO MONETÁRIA": {
+        "RECEITAS": "OUTRAS TAXAS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "DECLARAÇÃO": {
+        "RECEITAS": "OUTRAS TAXAS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "REVISÃO DE PROCESSO": {
+        "RECEITAS": "OUTRAS TAXAS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "TAXA DE CEMITERIO": {
+        "RECEITAS": "OUTRAS TAXAS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "TAXA DE EXPEDIENTE": {
+        "RECEITAS": "OUTRAS TAXAS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "OUTRAS RECEITAS DIVERSAS": {
+        "RECEITAS": "OUTRAS TAXAS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "OUTRAS RECEITAS": {
+        "RECEITAS": "OUTRAS TAXAS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "DEDUÇÃO DE RECEITA PARA A FORMAÇÃO D": {
+        "RECEITAS": "OUTRAS TAXAS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "BAIXA NA INSCRIÇÃO MUNICIPAL": {
+        "RECEITAS": "OUTRAS TAXAS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ACAO DE USUCAPIAO": {
+        "RECEITAS": "OUTRAS TAXAS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "MULTA ACESSÓRIA": {
+        "RECEITAS": "OUTRAS TAXAS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "DENUNCIA": {
+        "RECEITAS": "OUTRAS TAXAS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "NOTIFICAÇÃO DE LANÇ/AUTO DE INFRAÇÃO": {
+        "RECEITAS": "OUTRAS TAXAS",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "DÍVIDA ATIVA COSIP MULTA": {
+        "RECEITAS": "COSIP",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "DÍVIDA ATIVA COSIP JUROS": {
+        "RECEITAS": "COSIP",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "DÍVIDA ATIVA COSIP": {
+        "RECEITAS": "COSIP",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "COSIP (TERRENOS)": {
+        "RECEITAS": "COSIP",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "JUROS COSIP": {
+        "RECEITAS": "COSIP",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "MULTA COSIP": {
+        "RECEITAS": "COSIP",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "IMPOSTO DE RENDA RETIDO NA FONTE": {
+        "RECEITAS": "IRRF",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ALVARA DE LICENÇA": {
+        "RECEITAS": "RECEITAS DA VISA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ISSQN SIMPLES NACIONAL": {
+        "RECEITAS": "SIMPLES NACIONAL",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "TX UTIL COM EM LOG DE DOM PUBLIC/QUIOSQU": {
+        "RECEITAS": "RECEITAS DA SMDETUR",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ITBI": {
+        "RECEITAS": "ITBI",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "RECEITA DE HONORÁRIOS DE ADVOGADOS": {
+        "RECEITAS": "HONORÁRIOS PGM",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "TAXA DE ALVARA SANITARIO": {
+        "RECEITAS": "RECEITAS DA VISA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "TAXA DE INSPECAO": {
+        "RECEITAS": "RECEITAS DA VISA",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "TCTDRSU (PREDIO)": {
+        "RECEITAS": "COLETA DE LIXO",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "RECEITA DE MULTAS - CONDECON": {
+        "RECEITAS": "RECEITAS PROCON",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "TAXA DE PERMISSÃO": {
+        "RECEITAS": "RECEITAS DA SMDETUR",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "JUROS ITBI": {
+        "RECEITAS": "ITBI",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "DÍVIDA ATIVA TRIBUTÁRIA FEIRAS": {
+        "RECEITAS": "RECEITAS DA SMDETUR",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "RECEITA DE MERCADOS": {
+        "RECEITAS": "RECEITAS DA SMDETUR",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "HONORÁRIOS ADVOCATÍCIOS": {
+        "RECEITAS": "HONORÁRIOS PGM",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "TAXA DE PERMISSAO": {
+        "RECEITAS": "RECEITAS DA SMDETUR",
+        "ORIGEM": "PRÓPRIA"
+    },
+    "ICMS": {
+        "RECEITAS": "ICMS",
+        "ORIGEM": "REPASSE - UF"
+    },
+    "IPI": {
+        "RECEITAS": "IPI",
+        "ORIGEM": "REPASSE - UF"
+    },
+    "IPVA": {
+        "RECEITAS": "IPVA",
+        "ORIGEM": "REPASSE - UF"
+    },
+    "ROYALTIES": {
+        "RECEITAS": "ROYALTIES",
+        "ORIGEM": "REPASSE - UF"
+    },
+    "FPM": {
+        "RECEITAS": "FPM",
+        "ORIGEM": "REPASSE - UNIÃO"
+    }
+}
