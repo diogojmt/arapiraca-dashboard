@@ -216,6 +216,61 @@ function displayCSVData(csvData) {
     });
 }
 
+// Função para o botão "Exibir Dados.csv"
+document.getElementById('showCsvButton').addEventListener('click', function() {
+    // URL do proxy no Netlify
+    const proxyUrl = '/api/fetch-dados';
+
+    fetch(proxyUrl)
+    .then(response => {
+        if (response.ok) {
+            return response.text(); // Retorna o conteúdo do arquivo
+        } else {
+            throw new Error('Erro ao carregar o arquivo');
+        }
+    })
+    .then(csvText => {
+        const csvData = parseCSV(csvText);
+        displayCSVData(csvData);
+        document.getElementById('csvDataContainer').style.display = 'block';
+    })
+    .catch(error => {
+        console.error('Erro ao carregar o arquivo:', error);
+        alert('Erro ao carregar o arquivo CSV.');
+    });
+});
+
+function parseCSV(csvText) {
+    const lines = csvText.trim().split('\n');
+    const headers = lines[0].split(';');
+    const data = lines.slice(1).map(line => {
+        const values = line.split(';');
+        const entry = {};
+        headers.forEach((header, index) => {
+            entry[header.trim()] = values[index].trim();
+        });
+        return entry;
+    });
+    return data;
+}
+
+function displayCSVData(csvData) {
+    const csvDataBody = document.getElementById('csvDataBody');
+    csvDataBody.innerHTML = '';
+
+    csvData.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${row['Código']}</td>
+            <td>${row['Descrição do código tributário']}</td>
+            <td>${row['Total']}</td>
+            <td>${row['Mês/Ano']}</td>
+        `;
+        csvDataBody.appendChild(tr);
+    });
+}
+
+
 
 
 
