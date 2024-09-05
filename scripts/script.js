@@ -130,29 +130,32 @@ function loadUploadedFiles() {
 
 // Processamento de PDFs
 document.getElementById('processButton').addEventListener('click', function() {
+    console.log("Processando PDFs do Firebase...");
+
     fetch('/.netlify/functions/process-pdfs', { method: 'POST' })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erro no processamento dos PDFs: ' + response.status);
             }
-            return response.text();
+            return response.text();  // Continuar com a resposta em texto
         })
         .then(data => {
+            console.log('Resposta do servidor:', data);
             try {
-                const jsonData = JSON.parse(data);
+                const jsonData = JSON.parse(data);  // Tentar fazer o parse para JSON
                 alert(jsonData.message);
                 if (jsonData.message.includes('concluído')) {
-                    document.getElementById('downloadCsvButton').style.display = 'block';
-                    loadIndicatorsAndChart();
+                    document.getElementById('downloadCsvButton').style.display = 'block';  // Mostrar botão de download se o processamento for bem-sucedido
+                    loadIndicatorsAndChart();  // Carregar e exibir indicadores e gráficos
                 }
             } catch (error) {
-                console.error('Erro no JSON:', error);
-                alert('Erro ao processar PDFs.');
+                console.error('Erro ao processar a resposta JSON:', error);
+                alert('Erro ao processar os PDFs.');
             }
         })
         .catch(error => {
             console.error('Erro no processamento:', error);
-            alert('Erro ao processar PDFs.');
+            alert('Erro ao processar os PDFs.');
         });
 });
 
