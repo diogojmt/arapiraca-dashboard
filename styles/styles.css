@@ -36,32 +36,30 @@ body {
     background-color: #2563eb; /* Azul mais escuro no hover */
 }
 
-/* Seção de Upload e Processamento */
-.upload-section {
-    background-color: #2d2d2d;
+/* Seções do Dashboard */
+.tabela-receitas, .analise-receita, .acompanhamento-meta, .kpi, .upload-section {
+    background-color: #2d2d2d; /* Fundo escuro para as seções */
     padding: 20px;
     border-radius: 10px;
-    margin-bottom: 40px; /* Mantém simetria entre esta seção e as seções abaixo */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Sombra mais escura */
+    margin-bottom: 40px; /* Mantém simetria entre as seções */
     margin-left: 20px;
     margin-right: 20px;
-    width: calc(50% - 40px); /* Mesma largura das outras seções */
-    box-sizing: border-box;
 }
 
-/* Título com linha branca */
-.upload-section h2 {
-    color: #3b82f6; /* Azul escuro */
+.tabela-receitas h3, .analise-receita h3, .acompanhamento-meta h3, .kpi h3, .upload-section h2 {
+    color: #3b82f6; /* Título em azul escuro */
     font-size: 1.4em;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     border-bottom: 1px solid #f4f4f4; /* Linha branca abaixo do título */
     padding-bottom: 10px;
-    text-align: left;
+    text-align: left; /* Alinha o título à esquerda */
 }
 
-/* Ajustando o posicionamento dos botões */
+/* Ajustando o posicionamento dos botões na seção de upload */
 .upload-buttons {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-start; /* Alinha os botões à esquerda */
     align-items: center;
     gap: 10px;
     width: 100%;
@@ -97,40 +95,6 @@ body {
     grid-gap: 20px;
     padding: 0 20px;
     margin-bottom: 40px; /* Mantém simetria com o rodapé */
-}
-
-/* Seções do Dashboard */
-.tabela-receitas, .analise-receita, .acompanhamento-meta, .kpi {
-    background-color: #2d2d2d; /* Fundo escuro para os cards */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Sombra mais escura */
-}
-
-.tabela-receitas h3, .analise-receita h3, .acompanhamento-meta h3, .kpi h3 {
-    color: #3b82f6; /* Título em azul escuro */
-    font-size: 1.4em;
-    margin-bottom: 20px;
-}
-
-#fileTable, #uploadedFilesTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    font-size: 0.9em;
-}
-
-#fileTable th, #fileTable td, #uploadedFilesTable th, #uploadedFilesTable td {
-    border: 1px solid #555; /* Borda mais suave */
-    padding: 10px;
-    text-align: left;
-    background-color: #333; /* Fundo escuro nas células */
-    color: #f4f4f4; /* Texto claro nas células */
-}
-
-#fileTable th, #uploadedFilesTable th {
-    background-color: #444; /* Fundo do cabeçalho mais escuro */
-    color: #f4f4f4;
 }
 
 /* Indicadores e Gráficos */
