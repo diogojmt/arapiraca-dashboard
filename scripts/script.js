@@ -63,7 +63,7 @@ function uploadFile(file, progressBar, progressPercentage, callback) {
                 progressBar.style.width = '100%';
                 progressPercentage.textContent = '100% - Concluído!';
                 callback(true);
-                loadUploadedFiles();
+                loadUploadedFiles(); // Atualizar a lista de arquivos carregados
             } else {
                 throw new Error('Falha no upload');
             }
@@ -175,3 +175,57 @@ document.getElementById('downloadCsvButton').addEventListener('click', function(
             alert('Erro ao baixar o CSV.');
         });
 });
+
+// Parse CSV
+function parseCSV(csvText) {
+    const lines = csvText.trim().split('\n');
+    const headers = lines[0].split(';');
+    const data = lines.slice(1).map(line => {
+        const values = line.split(';');
+        const entry = {};
+        headers.forEach((header, index) => {
+            entry[header.trim()] = values[index].trim();
+        });
+        return entry;
+    });
+    return data;
+}
+
+// Exibir dados CSV
+function displayCSVData(csvData) {
+    const csvDataBody = document.getElementById('csvDataBody');
+    csvDataBody.innerHTML = '';
+
+    csvData.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${row['Código']}</td>
+            <td>${row['Descrição do código tributário']}</td>
+            <td>${row['Total']}</td>
+            <td>${row['Mês/Ano']}</td>
+        `;
+        csvDataBody.appendChild(tr);
+    });
+}
+
+// Função para carregar indicadores e exibir gráfico
+function loadIndicatorsAndChart(csvData) {
+    if (!csvData) {
+        fetch('/api/fetch-dados')
+            .then(response => response.text())
+            .then(csvText => {
+                csvData = parseCSV(csvText);
+                showIndicators(csvData);
+                displayChart(csvData);
+            })
+            .catch(error => {
+                console.error('Erro ao carregar o arquivo:', error);
+                alert('Erro ao carregar o arquivo CSV.');
+            });
+    } else {
+        showIndicators(csvData);
+        displayChart(csvData);
+    }
+}
+
+// Funções de indicadores e gráficos...
