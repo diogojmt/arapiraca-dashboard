@@ -58,9 +58,20 @@ body {
 .tabela-receitas h3, .analise-receita h3, .acompanhamento-meta h3, .kpi h3 {
     color: #1f8ecd;
     font-size: 1.4em;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    position: relative;
 }
 
+.tabela-receitas h3::after, .analise-receita h3::after, .acompanhamento-meta h3::after, .kpi h3::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #ddd;
+    margin-top: 5px;
+}
+
+/* Tabelas de arquivos */
 #fileTable, #uploadedFilesTable {
     width: 100%;
     border-collapse: collapse;
