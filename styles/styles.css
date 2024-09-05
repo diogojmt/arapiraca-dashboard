@@ -55,18 +55,13 @@ body {
     text-align: left; /* Alinha o título à esquerda */
 }
 
-.upload-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Alinha à esquerda */
-}
-
+/* Ajustando o posicionamento dos botões */
 .upload-buttons {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     gap: 10px;
     width: 100%;
-    max-width: 800px;
 }
 
 .upload-buttons input[type="file"] {
@@ -75,6 +70,8 @@ body {
     border: 1px solid #555;
     color: #f4f4f4;
     border-radius: 5px;
+    cursor: pointer;
+    width: auto;
 }
 
 .upload-buttons button {
