@@ -44,16 +44,18 @@ body {
     margin-bottom: 40px; /* Mantém simetria entre esta seção e as seções abaixo */
     margin-left: 20px;
     margin-right: 20px;
-    width: calc(50% - 40px); /* Mesma largura da seção Tabelas de Receitas Totais */
+    width: calc(50% - 40px); /* Mesma largura das outras seções */
+    box-sizing: border-box;
 }
 
+/* Título com linha branca */
 .upload-section h2 {
-    color: #f4f4f4; /* Texto branco */
+    color: #3b82f6; /* Azul escuro */
     font-size: 1.4em;
     margin-bottom: 10px;
     border-bottom: 1px solid #f4f4f4; /* Linha branca abaixo do título */
     padding-bottom: 10px;
-    text-align: left; /* Alinha o título à esquerda */
+    text-align: left;
 }
 
 /* Ajustando o posicionamento dos botões */
