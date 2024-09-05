@@ -25,34 +25,32 @@
     </header>
 
     <!-- Seção de Upload e Processamento -->
-    <section class="upload-section">
-        <div class="upload-container">
-            <h2>Upload e Processamento de Arquivos PDF</h2>
-            <div class="upload-buttons">
-                <input type="file" id="fileInput" accept="application/pdf" multiple required>
-                <div class="action-buttons">
-                    <button type="submit" id="uploadButton">Enviar Arquivos</button>
-                    <button id="processButton">Processar PDFs</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tabela para exibir os dados do CSV -->
-        <div id="csvDataContainer" style="display: none;">
-            <h3>Dados do Arquivo CSV</h3>
-            <table id="csvDataTable">
-                <thead>
-                    <tr>
-                        <th>Código</th>
-                        <th>Descrição</th>
-                        <th>Total</th>
-                        <th>Mês/Ano</th>
-                    </tr>
-                </thead>
-                <tbody id="csvDataBody"></tbody>
-            </table>
-        </div>
-    </section>
+	<section class="upload-section">
+		<!-- Seção de Upload (oculta até o login bem-sucedido) -->
+		<div class="upload-container">
+			<h2>Upload e Processamento de Arquivos PDF</h2>
+			<form id="uploadForm">
+				<input type="file" id="fileInput" accept="application/pdf" multiple required>
+				<button type="submit" id="uploadButton">Enviar Arquivos</button>
+				<button id="processButton">Processar PDFs</button>
+			</form>
+			<!-- Tabela para exibir os dados do CSV -->
+			<div id="csvDataContainer" style="display: none;">
+				<h3>Dados do Arquivo CSV</h3>
+				<table id="csvDataTable">
+					<thead>
+						<tr>
+							<th>Código</th>
+							<th>Descrição</th>
+							<th>Total</th>
+							<th>Mês/Ano</th>
+						</tr>
+					</thead>
+					<tbody id="csvDataBody"></tbody>
+				</table>
+			</div>
+		</div>
+	</section>
 
     <!-- Dashboard Principal -->
     <main class="dashboard-grid">
