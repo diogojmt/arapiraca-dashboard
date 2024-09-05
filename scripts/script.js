@@ -1,21 +1,4 @@
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    var username = document.getElementById('username').value;
-    var password = document.getElementById('password').value;
-
-    // Simulação de login (apenas para fins de exemplo)
-    if (username === 'admin' && password === '1234') {
-        document.querySelector('.login-container').style.display = 'none';
-        document.querySelector('.upload-container').style.display = 'block';
-
-        // Carregar e exibir arquivos existentes na pasta uploads
-        loadUploadedFiles();
-    } else {
-        alert('Credenciais inválidas!');
-    }
-});
-
+// Upload de arquivos PDF
 document.getElementById('uploadForm').addEventListener('submit', function(event) {
     event.preventDefault();
     
@@ -66,6 +49,9 @@ function uploadFile(file, progressBar, progressPercentage, callback) {
 
         fetch('/.netlify/functions/upload-pdf', {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 fileName: file.name,
                 fileContent: fileContent
@@ -73,15 +59,17 @@ function uploadFile(file, progressBar, progressPercentage, callback) {
         })
         .then(response => response.json())
         .then(data => {
-            progressBar.style.width = '100%';
-            progressPercentage.textContent = '100% - Concluído!';
-            callback(true);
-
-            // Atualizar a lista de arquivos carregados
-            loadUploadedFiles();
+            if (data.success) {
+                progressBar.style.width = '100%';
+                progressPercentage.textContent = '100% - Concluído!';
+                callback(true);
+                loadUploadedFiles();
+            } else {
+                throw new Error('Falha no upload');
+            }
         })
         .catch(error => {
-            console.error('Erro:', error);
+            console.error('Erro no upload:', error);
             progressPercentage.textContent = 'Erro no upload';
             progressBar.style.backgroundColor = 'red';
             callback(false);
@@ -90,7 +78,7 @@ function uploadFile(file, progressBar, progressPercentage, callback) {
 
     reader.readAsDataURL(file);
 
-    // Simular progresso
+    // Simular progresso de upload
     let progress = 0;
     let interval = setInterval(() => {
         if (progress < 100) {
@@ -103,6 +91,7 @@ function uploadFile(file, progressBar, progressPercentage, callback) {
     }, 100);
 }
 
+// Atualizar resumo do upload
 function updateSummary(successfulUploads, failedUploads, totalFiles) {
     var summary = document.getElementById('summary');
     summary.innerHTML = `
@@ -113,6 +102,7 @@ function updateSummary(successfulUploads, failedUploads, totalFiles) {
     `;
 }
 
+// Carregar arquivos existentes
 function loadUploadedFiles() {
     fetch('/.netlify/functions/list-uploads', { method: 'GET' })
         .then(response => {
@@ -123,221 +113,62 @@ function loadUploadedFiles() {
         })
         .then(data => {
             var uploadedFilesTable = document.getElementById('uploadedFiles');
-            if (uploadedFilesTable) {
-                uploadedFilesTable.innerHTML = ''; // Limpa a tabela antes de adicionar os arquivos
-                data.files.forEach(file => {
-                    let fileName = file.name.split('/').pop(); // Obtém apenas o nome do arquivo
-                    let fileExtension = fileName.split('.').pop(); // Obtém a extensão do arquivo
-                    let fileSize = (file.size / 1024).toFixed(2) + ' KB'; // Converte o tamanho para KB
-
-                    let row = `
-                        <tr>
-                            <td>${fileName}</td>
-                            <td>${fileExtension}</td>
-                            <td>${fileSize}</td>
-                        </tr>`;
-                    uploadedFilesTable.innerHTML += row;
-                });
-            }
+            uploadedFilesTable.innerHTML = '';
+            data.files.forEach(file => {
+                let fileName = file.name.split('/').pop();
+                let fileExtension = fileName.split('.').pop();
+                let fileSize = (file.size / 1024).toFixed(2) + ' KB';
+                let row = `<tr><td>${fileName}</td><td>${fileExtension}</td><td>${fileSize}</td></tr>`;
+                uploadedFilesTable.innerHTML += row;
+            });
         })
         .catch(error => {
             console.error('Erro ao carregar arquivos:', error);
-            alert('Erro ao carregar arquivos existentes.');
+            alert('Erro ao carregar arquivos.');
         });
 }
 
+// Processamento de PDFs
 document.getElementById('processButton').addEventListener('click', function() {
     fetch('/.netlify/functions/process-pdfs', { method: 'POST' })
-        .then(response => response.text())  // Mudei para .text() para ver a resposta como string
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro no processamento dos PDFs: ' + response.status);
+            }
+            return response.text();
+        })
         .then(data => {
-            console.log('Resposta do servidor:', data);
             try {
-                const jsonData = JSON.parse(data);  // Tenta fazer o parse
+                const jsonData = JSON.parse(data);
                 alert(jsonData.message);
                 if (jsonData.message.includes('concluído')) {
                     document.getElementById('downloadCsvButton').style.display = 'block';
-                    loadIndicatorsAndChart(); // Carregar e exibir indicadores e gráficos
+                    loadIndicatorsAndChart();
                 }
             } catch (error) {
-                console.error('Erro ao fazer o parse do JSON:', error);
-                alert('Erro ao processar os PDFs.');
+                console.error('Erro no JSON:', error);
+                alert('Erro ao processar PDFs.');
             }
         })
         .catch(error => {
             console.error('Erro no processamento:', error);
-            alert('Erro ao processar os PDFs.');
+            alert('Erro ao processar PDFs.');
         });
 });
 
-// Função para o botão "Baixar dados.csv"
+// Exibir o CSV processado e baixar
 document.getElementById('downloadCsvButton').addEventListener('click', function() {
-    // URL direta para o arquivo no Firebase Storage
     const storageUrl = 'https://firebasestorage.googleapis.com/v0/b/arrecadacao-arapiraca.appspot.com/o/dados.csv?alt=media';
-
     fetch(storageUrl)
-    .then(response => response.text())
-    .then(csvText => {
-        const csvData = parseCSV(csvText);
-        displayCSVData(csvData);
-        document.getElementById('csvDataContainer').style.display = 'block';
-        loadIndicatorsAndChart(csvData); // Carregar e exibir indicadores e gráficos
-    })
-    .catch(error => {
-        console.error('Erro ao baixar o arquivo:', error);
-        alert('Erro ao baixar o arquivo CSV.');
-    });
-});
-
-// Função para carregar indicadores e exibir gráfico
-function loadIndicatorsAndChart(csvData) {
-    if (!csvData) {
-        fetch('/api/fetch-dados')
-            .then(response => response.text())
-            .then(csvText => {
-                csvData = parseCSV(csvText);
-                showIndicators(csvData);
-                displayChart(csvData);
-                document.getElementById('indicatorsContainer').style.display = 'block';
-            })
-            .catch(error => {
-                console.error('Erro ao carregar o arquivo:', error);
-                alert('Erro ao carregar o arquivo CSV.');
-            });
-    } else {
-        showIndicators(csvData);
-        displayChart(csvData);
-        document.getElementById('indicatorsContainer').style.display = 'block';
-    }
-}
-
-function showIndicators(data) {
-    const totalGeral = calculateTotalGeral(data);
-    const quantidadeRegistros = data.length;
-    const mesAnoRecente = calculateMesAnoRecente(data);
-    const mediaPorMes = calculateMediaPorMes(data);
-    const codigoMaisComum = calculateCodigoMaisComum(data);
-
-    const totalGeralElement = document.getElementById('totalGeral');
-    const quantidadeRegistrosElement = document.getElementById('quantidadeRegistros');
-
-    if (totalGeralElement) {
-        totalGeralElement.textContent = `Total Geral: R$ ${totalGeral}`;
-    } else {
-        console.error('Elemento com ID "totalGeral" não encontrado.');
-    }
-
-    if (quantidadeRegistrosElement) {
-        quantidadeRegistrosElement.textContent = `Quantidade de Registros: ${quantidadeRegistros}`;
-    } else {
-        console.error('Elemento com ID "quantidadeRegistros" não encontrado.');
-    }
-
-    // Verificações para outros indicadores podem ser adicionadas da mesma forma
-}
-
-function calculateTotalGeral(data) {
-    return data.reduce((sum, row) => sum + parseFloat(row['Total'].replace(',', '.')), 0).toFixed(2).replace('.', ',');
-}
-
-function calculateMesAnoRecente(data) {
-    const meses = data.map(row => row['Mês/Ano']);
-    return meses.sort().reverse()[0];
-}
-
-function calculateMediaPorMes(data) {
-    const meses = data.reduce((acc, row) => {
-        acc[row['Mês/Ano']] = (acc[row['Mês/Ano']] || 0) + parseFloat(row['Total'].replace(',', '.'));
-        return acc;
-    }, {});
-    const totalMeses = Object.keys(meses).length;
-    const totalGeral = Object.values(meses).reduce((sum, value) => sum + value, 0);
-    return (totalGeral / totalMeses).toFixed(2).replace('.', ',');
-}
-
-function calculateCodigoMaisComum(data) {
-    const codigos = data.map(row => row['Código']);
-    const freqMap = codigos.reduce((acc, codigo) => {
-        acc[codigo] = (acc[codigo] || 0) + 1;
-        return acc;
-    }, {});
-    return Object.keys(freqMap).reduce((a, b) => (freqMap[a] > freqMap[b] ? a : b));
-}
-
-function displayChart(data) {
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: data.map(item => item['Mês/Ano']), // Supondo que você tenha um campo 'Mês/Ano'
-            datasets: [{
-                label: 'Arrecadação',
-                data: data.map(item => parseFloat(item['Total'].replace(',', '.'))),
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-}
-
-function parseCSV(csvText) {
-    const lines = csvText.trim().split('\n');
-    const headers = lines[0].split(';');
-    const data = lines.slice(1).map(line => {
-        const values = line.split(';');
-        const entry = {};
-        headers.forEach((header, index) => {
-            entry[header.trim()] = values[index].trim();
+        .then(response => response.text())
+        .then(csvText => {
+            const csvData = parseCSV(csvText);
+            displayCSVData(csvData);
+            document.getElementById('csvDataContainer').style.display = 'block';
+            loadIndicatorsAndChart(csvData);
+        })
+        .catch(error => {
+            console.error('Erro ao baixar o CSV:', error);
+            alert('Erro ao baixar o CSV.');
         });
-        return entry;
-    });
-    return data;
-}
-
-function displayCSVData(csvData) {
-    const csvDataBody = document.getElementById('csvDataBody');
-    csvDataBody.innerHTML = '';
-
-    csvData.forEach(row => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${row['Código']}</td>
-            <td>${row['Descrição do código tributário']}</td>
-            <td>${row['Total']}</td>
-            <td>${row['Mês/Ano']}</td>
-        `;
-        csvDataBody.appendChild(tr);
-    });
-}
-
-// Função para o botão "Exibir Dados.csv"
-document.getElementById('showCsvButton').addEventListener('click', function() {
-    // URL do proxy no Netlify
-    const proxyUrl = '/api/fetch-dados';
-
-    fetch(proxyUrl)
-    .then(response => {
-        if (response.ok) {
-            return response.text(); // Retorna o conteúdo do arquivo
-        } else {
-            throw new Error('Erro ao carregar o arquivo');
-        }
-    })
-    .then(csvText => {
-        const csvData = parseCSV(csvText);
-        displayCSVData(csvData);
-        document.getElementById('csvDataContainer').style.display = 'block';
-        loadIndicatorsAndChart(csvData); // Carregar e exibir indicadores e gráficos
-    })
-    .catch(error => {
-        console.error('Erro ao carregar o arquivo:', error);
-        alert('Erro ao carregar o arquivo CSV.');
-    });
 });
