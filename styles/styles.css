@@ -14,6 +14,7 @@ body {
     padding: 10px 20px;
     background-color: #2d2d2d; /* Cor de fundo escura no header */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    margin-bottom: 40px; /* Adiciona espaçamento para manter simetria com o rodapé */
 }
 
 .header .title h1, .header .title h2 {
@@ -35,51 +36,42 @@ body {
     background-color: #2563eb; /* Azul mais escuro no hover */
 }
 
+/* Seção de Upload e Processamento */
+.upload-section {
+    background-color: #2d2d2d;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 40px; /* Mantém simetria entre esta seção e as seções abaixo */
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-container form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    max-width: 800px; /* Limite de largura para manter alinhamento */
+}
+
+.upload-container h2 {
+    margin-bottom: 20px;
+}
+
 /* Layout em Grade */
 .dashboard-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
-    padding: 20px;
-}
-
-/* Upload Section */
-.upload-section {
-    margin: 0 20px; /* Ajuste das margens laterais para alinhar com as demais seções */
-    background-color: #2d2d2d; /* Fundo escuro para o retângulo */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Sombra mais escura */
-}
-
-.upload-container h2 {
-    color: #3b82f6;
-    margin-bottom: 20px;
-}
-
-/* Botões dentro do formulário */
-#uploadForm {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Espaçamento entre os botões */
-}
-
-#fileInput {
-    flex: 2; /* Aumentar o campo de input */
-}
-
-#uploadButton, #processButton, #downloadCsvButton {
-    flex: 1; /* Garantir que os botões tenham o mesmo tamanho */
-    background-color: #3b82f6; /* Azul escuro */
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#uploadButton:hover, #processButton:hover, #downloadCsvButton:hover {
-    background-color: #2563eb;
+    padding: 0 20px;
+    margin-bottom: 40px; /* Mantém simetria com o rodapé */
 }
 
 /* Seções do Dashboard */
@@ -94,6 +86,26 @@ body {
     color: #3b82f6; /* Título em azul escuro */
     font-size: 1.4em;
     margin-bottom: 20px;
+}
+
+#fileTable, #uploadedFilesTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+}
+
+#fileTable th, #fileTable td, #uploadedFilesTable th, #uploadedFilesTable td {
+    border: 1px solid #555; /* Borda mais suave */
+    padding: 10px;
+    text-align: left;
+    background-color: #333; /* Fundo escuro nas células */
+    color: #f4f4f4; /* Texto claro nas células */
+}
+
+#fileTable th, #uploadedFilesTable th {
+    background-color: #444; /* Fundo do cabeçalho mais escuro */
+    color: #f4f4f4;
 }
 
 /* Indicadores e Gráficos */
@@ -120,4 +132,5 @@ canvas {
     color: #999;
     font-size: 0.8em;
     border-top: 1px solid #444;
+    margin-top: 40px; /* Espaçamento no rodapé */
 }
