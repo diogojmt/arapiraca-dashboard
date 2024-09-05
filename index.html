@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Inclusão do Chart.js -->
 </head>
-<body class="light-mode">
+<body>
     <!-- Cabeçalho -->
     <header class="header">
         <div class="logo">
@@ -21,7 +21,6 @@
             <button>PRÓPRIA</button>
             <button>REPASSE - UF</button>
             <button>REPASSE - UNIÃO</button>
-            <button id="darkModeToggle">Modo Escuro</button>
         </div>
     </header>
 
@@ -35,69 +34,72 @@
         </form>
     </div>
 
-    <!-- Seção de Upload (oculta até o login bem-sucedido) -->
-    <div class="upload-container" style="display: none;">
-        <h2>Upload e Processamento de Arquivos PDF</h2>
-        <form id="uploadForm">
-            <input type="file" id="fileInput" accept="application/pdf" multiple required>
-            <button type="submit" id="uploadButton">Enviar Arquivos</button>
-        </form>
+    <!-- Seção de Upload e Processamento -->
+    <section class="upload-section">
+        <!-- Seção de Upload (oculta até o login bem-sucedido) -->
+        <div class="upload-container" style="display: none;">
+            <h2>Upload e Processamento de Arquivos PDF</h2>
+            <form id="uploadForm">
+                <input type="file" id="fileInput" accept="application/pdf" multiple required>
+                <button type="submit" id="uploadButton">Enviar Arquivos</button>
+            </form>
 
-        <!-- Dashboard Principal -->
-        <main class="dashboard-grid">
-            <!-- Tabela de Receitas Totais -->
-            <section class="tabela-receitas">
-                <h3>TABELA DE RECEITAS TOTAIS</h3>
-                <hr> <!-- Linha abaixo do título -->
-                <!-- Conteúdo removido -->
-            </section>
-
-            <!-- Análise de Receita Própria -->
-            <section class="analise-receita">
-                <h3>Análise da Receita Própria</h3>
-                <hr> <!-- Linha abaixo do título -->
-                <!-- Conteúdo removido -->
-            </section>
-
-            <!-- Acompanhamento da Meta -->
-            <section class="acompanhamento-meta">
-                <h3>Acompanhamento da Meta para 2024</h3>
-                <hr> <!-- Linha abaixo do título -->
-                <!-- Conteúdo removido -->
-            </section>
-
-            <!-- KPI e Gráficos -->
-            <section class="kpi">
-                <h3>KPI - Receita Própria vs Repasses - UF</h3>
-                <hr> <!-- Linha abaixo do título -->
-                <!-- Conteúdo removido -->
-            </section>
-        </main>
-
-        <!-- Botões para processar os PDFs e baixar o dados.csv -->
-        <div id="fileButtonContainer">
-            <button id="processButton">Processar PDFs</button>
-            <button id="downloadCsvButton" style="display: none;">Baixar dados.csv</button>
-			
-            <!-- Tabela para exibir os dados do CSV -->
-            <div id="csvDataContainer" style="display: none;">
-                <h3>Dados do Arquivo CSV</h3>
-                <table id="csvDataTable">
-                    <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Descrição</th>
-                            <th>Total</th>
-                            <th>Mês/Ano</th>
-                        </tr>
-                    </thead>
-                    <tbody id="csvDataBody"></tbody>
-                </table>
+            <!-- Botões para processar os PDFs e baixar o dados.csv -->
+            <div id="fileButtonContainer">
+                <button id="processButton">Processar PDFs</button>
+                <button id="downloadCsvButton" style="display: none;">Baixar dados.csv</button>
+            
+                <!-- Tabela para exibir os dados do CSV -->
+                <div id="csvDataContainer" style="display: none;">
+                    <h3>Dados do Arquivo CSV</h3>
+                    <table id="csvDataTable">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Descrição</th>
+                                <th>Total</th>
+                                <th>Mês/Ano</th>
+                            </tr>
+                        </thead>
+                        <tbody id="csvDataBody"></tbody>
+                    </table>
+                </div>
+                <!-- Botão para exibir os dados do CSV -->
+                <button id="showCsvButton">Exibir dados.csv</button>
             </div>
-            <!-- Botão para exibir os dados do CSV -->
-            <button id="showCsvButton">Exibir dados.csv</button>
         </div>
-    </div>
+    </section>
+
+    <!-- Dashboard Principal -->
+    <main class="dashboard-grid">
+        <!-- Tabela de Receitas Totais -->
+        <section class="tabela-receitas">
+            <h3>TABELA DE RECEITAS TOTAIS</h3>
+            <hr> <!-- Linha abaixo do título -->
+            <!-- Conteúdo removido -->
+        </section>
+
+        <!-- Análise de Receita Própria -->
+        <section class="analise-receita">
+            <h3>Análise da Receita Própria</h3>
+            <hr> <!-- Linha abaixo do título -->
+            <!-- Conteúdo removido -->
+        </section>
+
+        <!-- Acompanhamento da Meta -->
+        <section class="acompanhamento-meta">
+            <h3>Acompanhamento da Meta para 2024</h3>
+            <hr> <!-- Linha abaixo do título -->
+            <!-- Conteúdo removido -->
+        </section>
+
+        <!-- KPI e Gráficos -->
+        <section class="kpi">
+            <h3>KPI - Receita Própria vs Repasses - UF</h3>
+            <hr> <!-- Linha abaixo do título -->
+            <!-- Conteúdo removido -->
+        </section>
+    </main>
 
     <!-- Rodapé -->
     <footer class="footer">
