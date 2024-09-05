@@ -26,35 +26,16 @@
 
     <!-- Dashboard Principal -->
     <main class="dashboard-grid">
-        
         <!-- Seção de Upload e Processamento -->
-        <section class="upload-section">
-            <div class="upload-container">
-                <h2>Upload e Processamento de Arquivos PDF</h2>
-                <hr> <!-- Linha abaixo do título -->
-                <div class="upload-buttons">
-                    <input type="file" id="fileInput" accept="application/pdf" multiple required>
-                    <div class="action-buttons">
-                        <button type="submit" id="uploadButton">Enviar Arquivos</button>
-                        <button id="processButton">Processar PDFs</button>
-                    </div>
+        <section class="upload-processamento">
+            <h3>Upload e Processamento de Arquivos PDF</h3>
+            <!-- A linha duplicada foi removida aqui -->
+            <div class="upload-buttons">
+                <input type="file" id="fileInput" accept="application/pdf" multiple required>
+                <div class="action-buttons">
+                    <button type="submit" id="uploadButton">Enviar Arquivos</button>
+                    <button id="processButton">Processar PDFs</button>
                 </div>
-            </div>
-
-            <!-- Tabela para exibir os dados do CSV -->
-            <div id="csvDataContainer" style="display: none;">
-                <h3>Dados do Arquivo CSV</h3>
-                <table id="csvDataTable">
-                    <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Descrição</th>
-                            <th>Total</th>
-                            <th>Mês/Ano</th>
-                        </tr>
-                    </thead>
-                    <tbody id="csvDataBody"></tbody>
-                </table>
             </div>
         </section>
 
@@ -81,7 +62,6 @@
             <h3>KPI - Receita Própria vs Repasses - UF</h3>
             <hr> <!-- Linha abaixo do título -->
         </section>
-
     </main>
 
     <!-- Rodapé -->

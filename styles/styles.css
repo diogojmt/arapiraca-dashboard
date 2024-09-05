@@ -36,33 +36,39 @@ body {
     background-color: #2563eb; /* Azul mais escuro no hover */
 }
 
-/* Seções do Dashboard */
-.tabela-receitas, .analise-receita, .acompanhamento-meta, .kpi, .upload-section {
-    background-color: #2d2d2d; /* Fundo escuro para as seções */
+/* Layout em Grade */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Layout em duas colunas */
+    grid-gap: 20px;
+    padding: 0 20px;
+    margin-bottom: 20px; /* Mantém o espaçamento entre as seções */
+}
+
+/* Seção de Upload e Processamento */
+.upload-processamento {
+    grid-column: span 2; /* Ocupar duas colunas no grid */
+    background-color: #2d2d2d;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Sombra mais escura */
-    margin-bottom: 40px; /* Mantém simetria entre as seções */
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-bottom: 0px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Sombra mais escura */
 }
 
-.tabela-receitas h3, .analise-receita h3, .acompanhamento-meta h3, .kpi h3, .upload-section h2 {
-    color: #3b82f6; /* Título em azul escuro */
+.upload-processamento h3 {
+    color: #3b82f6; /* Azul semelhante ao título "Tabelas de Receitas Totais" */
     font-size: 1.4em;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     border-bottom: 1px solid #f4f4f4; /* Linha branca abaixo do título */
     padding-bottom: 10px;
-    text-align: left; /* Alinha o título à esquerda */
+    text-align: left;
 }
 
-/* Ajustando o posicionamento dos botões na seção de upload */
 .upload-buttons {
     display: flex;
-    justify-content: flex-start; /* Alinha os botões à esquerda */
+    justify-content: flex-start;
     align-items: center;
     gap: 10px;
-    width: 100%;
 }
 
 .upload-buttons input[type="file"] {
@@ -72,7 +78,6 @@ body {
     color: #f4f4f4;
     border-radius: 5px;
     cursor: pointer;
-    width: auto;
 }
 
 .upload-buttons button {
@@ -88,32 +93,21 @@ body {
     background-color: #2563eb;
 }
 
-/* Layout em Grade */
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
-    padding: 0 20px;
-    margin-bottom: 40px; /* Mantém simetria com o rodapé */
-}
-
-/* Indicadores e Gráficos */
-#indicatorsContainer {
-    background-color: #23272a; /* Cor de fundo escura */
+/* Seções do Dashboard */
+.tabela-receitas, .analise-receita, .acompanhamento-meta, .kpi {
+    background-color: #2d2d2d; /* Fundo escuro para os cards */
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    margin-top: 20px;
-    color: #fff;
-    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Sombra mais escura */
 }
 
-canvas {
-    background-color: #333; /* Fundo escuro nos gráficos */
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+.tabela-receitas h3, .analise-receita h3, .acompanhamento-meta h3, .kpi h3 {
+    color: #3b82f6; /* Título em azul escuro */
+    font-size: 1.4em;
+    margin-bottom: 20px;
 }
 
+/* Rodapé */
 .footer {
     text-align: center;
     padding: 20px;
