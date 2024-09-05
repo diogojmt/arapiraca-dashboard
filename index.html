@@ -30,12 +30,15 @@
         <section class="upload-processamento">
             <h3>Upload e Processamento de Arquivos PDF</h3>
             <div class="upload-buttons">
-				<input type="file" id="fileInput" accept="application/pdf" multiple>
-				<div class="action-buttons">
-					<button type="submit" id="uploadButton">Enviar Arquivos</button>
-					<button id="processButton">Processar PDFs</button> <!-- Botão sempre visível -->
-				</div>
-			</div>
+                <form id="uploadForm"> <!-- Formulário para enviar arquivos -->
+                    <input type="file" id="fileInput" accept="application/pdf" multiple required>
+                    <div class="action-buttons">
+                        <button type="submit" id="uploadButton">Enviar Arquivos</button>
+                    </div>
+                </form>
+                <button id="processButton">Processar PDFs</button> <!-- Botão sempre visível -->
+            </div>
+            <table id="fileList"></table> <!-- Lista de arquivos enviados -->
         </section>	
 
         <!-- Tabelas de Receitas Totais -->
