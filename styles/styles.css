@@ -46,35 +46,36 @@ body {
     margin-right: 20px;
 }
 
-.upload-section h2 {
-    color: #3b82f6; /* Azul semelhante ao título "Tabelas de Receitas Totais" */
-    font-size: 1.4em;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #3b82f6; /* Linha abaixo do título */
-    padding-bottom: 10px;
-    text-align: left; /* Alinha o título à esquerda */
+.upload-container h2 {
+    text-align: left;
+    margin-bottom: 20px;
 }
 
 /* Ajustando o posicionamento dos botões */
 .upload-buttons {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
-    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .upload-buttons input[type="file"] {
+    width: 60%; /* Define largura para o campo de escolha de arquivos */
     padding: 10px;
     background-color: #444;
     border: 1px solid #555;
     color: #f4f4f4;
     border-radius: 5px;
-    cursor: pointer;
-    width: auto;
+    margin-right: 10px;
 }
 
-.upload-buttons button {
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.action-buttons button {
     background-color: #3b82f6;
     color: white;
     border: none;
@@ -83,7 +84,7 @@ body {
     cursor: pointer;
 }
 
-.upload-buttons button:hover {
+.action-buttons button:hover {
     background-color: #2563eb;
 }
 
