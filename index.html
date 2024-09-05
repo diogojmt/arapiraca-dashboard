@@ -24,58 +24,41 @@
         </div>
     </header>
 
-    <!-- Seção de Login -->
-    <div class="login-container">
-        <h2>Login</h2>
-        <form id="loginForm">
-            <input type="text" id="username" placeholder="Usuário" required>
-            <input type="password" id="password" placeholder="Senha" required>
-            <button type="submit">Entrar</button>
-        </form>
-    </div>
-
     <!-- Seção de Upload e Processamento -->
     <section class="upload-section">
         <!-- Seção de Upload (oculta até o login bem-sucedido) -->
-        <div class="upload-container" style="display: none;">
-            <h3>Upload e Processamento de Arquivos PDF</h3>
-            <hr> <!-- Linha abaixo do título -->
+        <div class="upload-container">
+            <h2>Upload e Processamento de Arquivos PDF</h2>
             <form id="uploadForm">
                 <input type="file" id="fileInput" accept="application/pdf" multiple required>
                 <button type="submit" id="uploadButton">Enviar Arquivos</button>
+                <button id="processButton">Processar PDFs</button>
+                <button id="downloadCsvButton" style="display: none;">Exibir dados.csv</button>
             </form>
 
-            <!-- Botões para processar os PDFs e baixar o dados.csv -->
-            <div id="fileButtonContainer">
-                <button id="processButton">Processar PDFs</button>
-                <button id="downloadCsvButton" style="display: none;">Baixar dados.csv</button>
-            
-                <!-- Tabela para exibir os dados do CSV -->
-                <div id="csvDataContainer" style="display: none;">
-                    <h3>Dados do Arquivo CSV</h3>
-                    <table id="csvDataTable">
-                        <thead>
-                            <tr>
-                                <th>Código</th>
-                                <th>Descrição</th>
-                                <th>Total</th>
-                                <th>Mês/Ano</th>
-                            </tr>
-                        </thead>
-                        <tbody id="csvDataBody"></tbody>
-                    </table>
-                </div>
-                <!-- Botão para exibir os dados do CSV -->
-                <button id="showCsvButton">Exibir dados.csv</button>
+            <!-- Tabela para exibir os dados do CSV -->
+            <div id="csvDataContainer" style="display: none;">
+                <h3>Dados do Arquivo CSV</h3>
+                <table id="csvDataTable">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Descrição</th>
+                            <th>Total</th>
+                            <th>Mês/Ano</th>
+                        </tr>
+                    </thead>
+                    <tbody id="csvDataBody"></tbody>
+                </table>
             </div>
         </div>
     </section>
 
     <!-- Dashboard Principal -->
     <main class="dashboard-grid">
-        <!-- Tabela de Receitas Totais -->
+        <!-- Tabelas de Receitas Totais -->
         <section class="tabela-receitas">
-            <h3>TABELA DE RECEITAS TOTAIS</h3>
+            <h3>Tabelas de Receitas Totais</h3>
             <hr> <!-- Linha abaixo do título -->
             <!-- Conteúdo removido -->
         </section>
