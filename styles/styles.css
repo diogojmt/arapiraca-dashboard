@@ -46,62 +46,46 @@ body {
     margin-right: 20px;
 }
 
-.upload-container {
-    display: flex;
-    justify-content: space-between; /* Alinha o título à esquerda e os botões à direita */
-    align-items: center;
-}
-
 .upload-container h2 {
+    text-align: left;
     margin-bottom: 20px;
-    color: #3b82f6; /* Título em azul escuro */
-    font-size: 1.4em;
 }
 
-/* Estilizando os botões para ficarem semelhantes aos da seção de filtros */
-.upload-container form {
+/* Ajustando o posicionamento dos botões */
+.upload-buttons {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.upload-buttons input[type="file"] {
+    width: 60%; /* Define largura para o campo de escolha de arquivos */
+    padding: 10px;
+    background-color: #444;
+    border: 1px solid #555;
+    color: #f4f4f4;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.action-buttons {
+    display: flex;
     gap: 10px;
 }
 
-.upload-container form button,
-.upload-container form input[type="file"] {
-    background-color: #3b82f6; /* Azul escuro */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.upload-container form button:hover,
-.upload-container form input[type="file"]::file-selector-button:hover {
-    background-color: #2563eb; /* Azul mais escuro no hover */
-}
-
-/* Alinhar o input de arquivo para o design de botão */
-.upload-container form input[type="file"] {
-    padding: 8px 10px;
-    background-color: #3b82f6; /* Mesmo estilo dos botões */
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    max-width: 180px; /* Ajusta o tamanho do campo */
-}
-
-.upload-container form input[type="file"]::file-selector-button {
+.action-buttons button {
     background-color: #3b82f6;
+    color: white;
     border: none;
     padding: 10px 20px;
-    color: white;
-    cursor: pointer;
     border-radius: 5px;
+    cursor: pointer;
 }
 
-.upload-container form input[type="file"]::file-selector-button:hover {
-    background-color: #2563eb; /* Azul mais escuro no hover */
+.action-buttons button:hover {
+    background-color: #2563eb;
 }
 
 /* Layout em Grade */
