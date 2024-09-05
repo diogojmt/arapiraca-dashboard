@@ -1,46 +1,47 @@
-// Upload de arquivos PDF
-document.getElementById('uploadForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    var files = document.getElementById('fileInput').files;
-    var fileList = document.getElementById('fileList');
-    fileList.innerHTML = '';
-    
-    var totalFiles = files.length;
-    var successfulUploads = 0;
-    var failedUploads = 0;
+document.addEventListener('DOMContentLoaded', function() {
+    // Upload de arquivos PDF
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        var files = document.getElementById('fileInput').files;
+        var fileList = document.getElementById('fileList');
+        fileList.innerHTML = '';
+        
+        var totalFiles = files.length;
+        var successfulUploads = 0;
+        var failedUploads = 0;
 
-    if (totalFiles > 0) {
-        for (let i = 0; i < files.length; i++) {
-            let file = files[i];
-            let listItem = document.createElement('tr');
-            listItem.innerHTML = `<td>${file.name}</td><td><span class="progress-percentage">0%</span></td>`;
-            let progressContainer = document.createElement('div');
-            progressContainer.className = 'progress-container';
-            let progressBar = document.createElement('div');
-            progressBar.className = 'progress-bar';
-            progressContainer.appendChild(progressBar);
-            listItem.querySelector('td:last-child').appendChild(progressContainer);
-            fileList.appendChild(listItem);
+        if (totalFiles > 0) {
+            for (let i = 0; i < files.length; i++) {
+                let file = files[i];
+                let listItem = document.createElement('tr');
+                listItem.innerHTML = `<td>${file.name}</td><td><span class="progress-percentage">0%</span></td>`;
+                let progressContainer = document.createElement('div');
+                progressContainer.className = 'progress-container';
+                let progressBar = document.createElement('div');
+                progressBar.className = 'progress-bar';
+                progressContainer.appendChild(progressBar);
+                listItem.querySelector('td:last-child').appendChild(progressContainer);
+                fileList.appendChild(listItem);
 
-            uploadFile(file, progressBar, listItem.querySelector('.progress-percentage'), function(success) {
-                if (success) {
-                    successfulUploads++;
-                } else {
-                    failedUploads++;
-                }
-                updateSummary(successfulUploads, failedUploads, totalFiles);
-                
-                // Mostrar botão de processamento se houver uploads bem-sucedidos
-                if (successfulUploads > 0) {
-                    document.getElementById('processButton').style.display = 'block';
-                }
-            });
+                uploadFile(file, progressBar, listItem.querySelector('.progress-percentage'), function(success) {
+                    if (success) {
+                        successfulUploads++;
+                    } else {
+                        failedUploads++;
+                    }
+                    updateSummary(successfulUploads, failedUploads, totalFiles);
+                    
+                    // Mostrar botão de processamento se houver uploads bem-sucedidos
+                    if (successfulUploads > 0) {
+                        document.getElementById('processButton').style.display = 'block';
+                    }
+                });
+            }
+        } else {
+            alert('Por favor, selecione um ou mais arquivos.');
         }
-    } else {
-        alert('Por favor, selecione um ou mais arquivos.');
-    }
-});
+    });
 
 function uploadFile(file, progressBar, progressPercentage, callback) {
     var reader = new FileReader();
